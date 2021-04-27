@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>用户管理-一苇以航</title>
+    <title>组织创建申请管理-一苇以航</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -45,7 +45,7 @@
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
+                                <input type="text" name="username" placeholder="请输入组织名" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
@@ -69,10 +69,12 @@
                                         <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                     <th>ID</th>
-                                    <th>昵称</th>
-                                    <th>头像</th>
-                                    <th>邮箱</th>
-                                    <th>签名</th>
+                                    <th>名称</th>
+                                    <th>描述</th>
+                                    <th>申请时间</th>
+                                    <th>审批状态</th>
+                                    <th>组织创建者</th>
+                                    <th>所属版块</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -100,7 +102,7 @@
                                             href="javascript:;">
                                             <i class="layui-icon">&#xe631;</i>
                                         </a>
-                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                        <a title="删除" onclick="app_del(this,'要删除的id')" href="javascript:;">
                                             <i class="layui-icon">&#xe640;</i>
                                         </a>
                                     </td>
@@ -159,12 +161,12 @@
             type: 3,
             icon: 1
         });
-        $.ajax(server + 'users/', {
+        $.ajax(server + 'organizations/applications/', {
             method: 'GET'
         }).done(function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
-                member_add(data[i]);
+                app_add(data[i]);
             }
         }).fail(function (xhr, status) {
             console.log(xhr);
@@ -176,12 +178,11 @@
     });
 
     /*用户-停用*/
-    function member_stop(obj, id) {
+    function app_stop(obj, id) {
         layer.confirm('确认要停用吗？', function (index) {
 
             if ($(obj).attr('title') == '启用') {
 
-                //发异步把用户状态进行更改
                 $(obj).attr('title', '停用')
                 $(obj).find('i').html('&#xe62f;');
 
@@ -199,38 +200,136 @@
         });
     }
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        //TODO:用户不存在时如何提示？
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $.ajax(server + `users/${id}/`, {
-                method: 'DELETE'
-            }).done(function (data) {
-                $(obj).parents("tr").remove();
+    function del_req(obj, id, silence) {
+        var result = false;
+        $.ajax(server + `organizations/applications/${id}/`, {
+            method: 'DELETE'
+        }).done(function (data) {
+            $(obj).parents("tr").remove();
+            if (!silence) {
                 layer.msg('已删除!', { icon: 1, time: 1000 });
-            }).fail(function (xhr, status) {
-                console.log(xhr);
-                console.log(status);
+            }
+        }).fail(function (xhr, status) {
+            console.log(xhr);
+            console.log(status);
+            if (!silence) {
                 if (xhr.status === 404) {
-                    layer.msg('该用户不存在', { icon: 5 });
+                    layer.msg('该申请不存在', { icon: 5 });
                 }
                 else {
                     layer.msg("网络错误", { icon: 2 });
                 }
-            }).always(function () {
-                //layer.close(index);
-            });
+            }
+        }).always(function () {
+            //layer.close(index);
+        });
+        return result;
+    }
+
+    /*删除*/
+    function app_del(obj, id) {
+        //TODO:用户不存在时如何提示？
+        layer.confirm('确认要删除吗？', function (index) {
+            //发异步删除数据
+            del_req(obj, id, false);
         });
     }
 
-    /*用户-编辑*/
-    function member_edit(obj, id) {
-        //TODO:用户不存在时如何提示？
-        localStorage.member_id_edit = id;
-        xadmin.open('编辑', 'member-edit.html', 600, 400);
+    /*审批*/
+    function app_confirm(obj, id, status, name, owner, block) {
+        //TODO:如何在审批完成后直接在页面上更新审批状态？
+        if (status === 1) {
+            /*var app_data;
+            $.ajax(server + 'organizations/applications/' + id, {
+                method: 'GET'
+            }).done(function (data) {
+                console.log(data);
+                app_data = data;
+            }).fail(function (xhr, status) {
+                console.log(xhr);
+                console.log(status);
+                layer.msg("网络错误", { icon: 2 });
+            }).always(function () {
+                layer.close(index);
+            });*/
+            var index = layer.open({ type: 3, icon: 1 });
+            var send_data = {
+                name: name,
+                owner: owner,
+                block: block
+            };
+            $.ajax(server + 'organizations/', {
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(send_data)
+            }).done(function (data) {
+                $.ajax(server + `organizations/applications/verifications/${id}/`, {
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ status: status })
+                }).done(function (data) {
+                    layer.msg('审批完成', { icon: 6 });
+                }).fail(function (xhr, status) {
+                    if (xhr.status === 400) {
+                        layer.msg("该申请已被处理", { icon: 5 });
+                    }
+                    else if (xhr.status === 404) {
+                        layer.msg("该申请不存在", { icon: 5 });
+                    }
+                    else {
+                        console.log(xhr);
+                        console.log(status);
+                        layer.msg("网络错误", { icon: 2 });
+                    }
+                });
+            }).fail(function (xhr, status) {
+                if (xhr.status === 400) {
+                    layer.msg(`组织 ${name} 已存在`, { icon: 5 });
+                }
+                else {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", { icon: 2 });
+                }
+            }).always(function () {
+                layer.close(index);
+            });
+        }
+        else if (status === 2) {
+            $.ajax(server + `organizations/applications/verifications/${id}/`, {
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ status: status })
+            }).done(function (data) {
+                layer.msg('审批完成', { icon: 6 });
+            }).fail(function (xhr, status) {
+                if (xhr.status === 400) {
+                    layer.msg("该申请已被处理", { icon: 6 });
+                }
+                else if (xhr.status === 404) {
+                    layer.msg("该申请不存在", { icon: 6 });
+                }
+                else {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", { icon: 2 });
+                }
+            });
+        }
+        else {
+            console.log('status is' + status);
+        }
+        /*var new_data;
+        $.ajax(server + 'organizations/applications/' + id, {
+            method: 'GET',
+        }).done(function (data) {
+            new_data = data;
+        }).fail(function (xhr, status) {
+        });
+        if (new_data) {
+            app_update($(obj).parents('td'), new_data);
+        }*/
     }
-
 
     function delAll(argument) {
         var ids = [];
@@ -249,51 +348,64 @@
             //TODO：用户不存在时如何提示？
             var status = true;
             for (var i = 0; i < ids.length; i++) {
-                $.ajax(server + `users/${ids[i]}/`, {
-                    method: 'DELETE'
-                }).done(function (data) {
-                    $(elems[i]).parents("tr").remove();
-                    //layer.msg('已删除!', { icon: 1, time: 1000 });
-                }).fail(function (xhr, status) {
-                    console.log(xhr);
-                    console.log(status);
-                    //layer.msg("网络错误");
-                    status = false;
-                }).always(function () {
-                    //layer.close(index);
-                });
+                status &= del_req(elems[i], ids[i], true);
             }
             if (status === true) {
                 layer.msg('删除成功', { icon: 1 });
             }
             else {
-                layer.msg('部分用户未能成功删除，请再次尝试', { icon: 5 });
+                layer.msg('部分申请未能成功删除，请再次尝试', { icon: 5 });
             }
             //$(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }
 
-    function member_add(data) {
+    function app_add(data) {
         cnt++;
-        td = document.createElement('tr');
-        td.innerHTML = `
+        var td = document.createElement('tr');
+        app_update(td, data);
+        tbody.appendChild(td);
+        form.render('checkbox');
+    }
+
+    function app_update(td, data) {
+        var status;
+        if (data.status === 0) {
+            status = '待审批';
+        }
+        else if (data.status === 1) {
+            status = '审批通过';
+        }
+        else {
+            status = '审批未通过';
+        }
+        $(td).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
             <td>${data.id}</td>
             <td>${data.name}</td>
-            <td>${data.avatar}</td>
-            <td>${data.email}</td>
-            <td>${data.sign}</td>
+            <td>${data.description}</td>
+            <td>${data.pub_time}</td>
+            <td>${status}</td>
+            <td>${data.user.name}</td>
+            <td>${data.block.name}</td>
             <td class="td-manage">
-                <a title="编辑" onclick="member_edit(this,${data.id})"
+                <a title="同意" onclick="app_confirm(this,${data.id},1,'${data.name}',${data.user.id},${data.block.id})"
                 href="javascript:;">
-                    <i class="layui-icon">&#xe642;</i>
+                    <i class="layui-icon layui-icon-ok"></i>
                 </a>
-                <a title="删除" onclick="member_del(this,${data.id})" href="javascript:;">
+                <a title="拒绝" onclick="app_confirm(this,${data.id},2,'${data.name}',${data.user.id},${data.block.id})"
+                href="javascript:;">
+                    <i class="layui-icon layui-icon-close"></i>
+                </a>
+                <a title="删除" onclick="app_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
-            </td>`;
-        tbody.appendChild(td);
+            </td>`);
         form.render('checkbox');
+    }
+
+    function post_edit() {
+
     }
 </script>
 

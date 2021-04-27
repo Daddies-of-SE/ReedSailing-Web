@@ -15,6 +15,7 @@
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
     <script src="./js/jquery.min.js"></script>
+    <script src="./js/app.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -25,7 +26,7 @@
         // var is_remember = false;
         username = localStorage.username;
         //localStorage.removeItem('username');
-        if (username===undefined) {
+        if (username === undefined) {
             location.href = 'login.html';
         }
         $(function (params) {
@@ -169,9 +170,14 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('多级分类','cate.html')">
+                            <a onclick="xadmin.add_tab('组织创建审核','cate.html')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>多级分类</cite></a>
+                                <cite>组织创建审核</cite></a>
+                        </li>
+                        <li>
+                            <a onclick="xadmin.add_tab('组织列表','cate.html')">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>组织列表</cite></a>
                         </li>
                     </ul>
                 </li>
@@ -380,13 +386,7 @@
     <style id="theme_style"></style>
     <!-- 右侧主体结束 -->
     <!-- 中部结束 -->
-    <script>//百度统计可去掉
-        var _hmt = _hmt || []; (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();</script>
+
 </body>
 
 </html>

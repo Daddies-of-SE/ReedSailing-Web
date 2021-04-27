@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>用户编辑-一苇以航</title>
+    <title>申请审批-一苇以航</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -68,7 +68,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="">提交</button>
+                    <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
                 </div>
             </form>
         </div>
@@ -76,8 +76,8 @@
     <script>
         layui.use(['form', 'layer'],
             function () {
-                var id = localStorage.member_id_edit;
-                localStorage.removeItem('member_id_edit');
+                var id = localStorage.id_edit;
+                localStorage.removeItem('id_edit');
                 console.log(id);
                 $ = layui.jquery;
                 var form = layui.form,

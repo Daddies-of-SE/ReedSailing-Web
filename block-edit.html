@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>用户编辑-一苇以航</title>
+    <title>版块编辑-一苇以航</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -37,33 +37,9 @@
                 </div>
                 <div class="layui-form-item">
                     <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>昵称</label>
+                        <span class="x-red">*</span>版块名</label>
                     <div class="layui-input-inline">
                         <input type="text" id="L_name" name="name" required="" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="L_avatar" class="layui-form-label">
-                        头像</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_avatar" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        Email</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_email" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="L_sign" class="layui-form-label">
-                        签名</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_sign" name="sign" lay-verify="sign" autocomplete="off"
-                            class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -76,31 +52,28 @@
     <script>
         layui.use(['form', 'layer'],
             function () {
-                var id = localStorage.member_id_edit;
-                localStorage.removeItem('member_id_edit');
+                var id = localStorage.block_id_edit;
+                localStorage.removeItem('block_id_edit');
                 console.log(id);
                 $ = layui.jquery;
                 var form = layui.form,
                     layer = layui.layer;
 
-                if (isNaN(id)) {
+                if (id == null) {
                     layer.msg('ID错误', { icon: 5 });
                 }
                 if (!isNaN(id)) {
                     var index = layer.open({ type: 3, icon: 1 });
-                    $.ajax(server + `users/${id}/`, {
+                    $.ajax(server + `blocks/${id}/`, {
                         method: 'GET'
                     }).done(function (data) {
                         $('#L_id').val(data.id);
                         $('#L_name').val(data.name);
-                        $('#L_avatar').val(data.avatar);
-                        $('#L_email').val(data.email);
-                        $('#L_sign').val(data.sign);
                     }).fail(function (xhr, status) {
                         console.log(xhr);
                         console.log(status);
                         if (xhr.status === 404) {
-                            layer.msg('该用户不存在', { icon: 5 });
+                            layer.msg('该版块不存在', { icon: 5 });
                         }
                         else {
                             layer.msg("网络错误", { icon: 2 });
@@ -142,10 +115,7 @@
                             console.log(status);
                             //layer.msg("网络错误");
                             if (xhr.status === 400) {
-                                layer.msg('昵称不能为空', { icon: 5 });
-                            }
-                            else if (xhr.status === 404) {
-                                layer.msg('该用户不存在', { icon: 5 });
+                                layer.msg(`版块 ${data.field.name} 已存在`, { icon: 5 });
                             }
                             else {
                                 layer.msg('网络错误', { icon: 2 });

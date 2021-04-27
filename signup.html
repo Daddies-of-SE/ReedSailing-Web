@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/xadmin.css">
     <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script src="./js/app.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
             <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -67,7 +68,6 @@
         </div>
     </div>
     <script>
-        base_dst = 'http://127.0.0.1:8000/';
         layui.use(['form', 'layer', 'jquery'],
             function () {
                 $ = layui.jquery;
@@ -95,7 +95,7 @@
                         console.log(data.field);
                         //发异步，把数据提交给php
                         var index = layer.open({ type: 3, icon: 1 });
-                        $.ajax(base_dst + 'register/', {
+                        $.ajax(server + 'register/', {
                             method: 'POST',
                             data: JSON.stringify(data.field)
                         }).done(function (data) {
@@ -128,12 +128,6 @@
                     });
 
             });</script>
-    <script>var _hmt = _hmt || []; (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();</script>
 </body>
 
 </html>
