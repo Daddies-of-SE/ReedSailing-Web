@@ -23,10 +23,10 @@
         <![endif]-->
     <script>
         // 是否开启刷新记忆tab功能
-        // var is_remember = false;
+        var is_remember = false;
         username = localStorage.username;
         //localStorage.removeItem('username');
-        if (username === undefined) {
+        if (username == null) {
             location.href = 'login.html';
         }
         $(function (params) {
@@ -126,7 +126,7 @@
                                 <cite>会员删除</cite></a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a>
                                 <i class="iconfont">&#xe70b;</i>
                                 <cite>会员管理</cite>
                                 <i class="iconfont nav_right">&#xe697;</i></a>
@@ -146,11 +146,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:;" onclick="xadmin.add_tab('用户列表','member-list.html')">
                         <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
                         <cite>用户管理</cite>
-                        <i class="iconfont nav_right">&#xe697;</i></a>
-                    <ul class="sub-menu">
+                        <!-- <i class="iconfont nav_right">&#xe697;</i> -->
+                    </a>
+                    <!-- <ul class="sub-menu">
                         <li>
                             <a onclick="xadmin.add_tab('用户列表','member-list.html')">
                                 <i class="iconfont">&#xe6a7;</i>
@@ -161,7 +162,22 @@
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>订单列表1</cite></a>
                         </li>
-                    </ul>
+                    </ul> -->
+                </li>
+                <li>
+                    <a href="javascript:;" onclick="xadmin.add_tab('版块列表','block-list.html')">
+                        <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
+                        <cite>版块管理</cite>
+                        <!-- <i class="iconfont nav_right">&#xe697;</i> -->
+                    </a>
+                    <!-- <ul class="sub-menu">
+                        <li>
+                            <a onclick="xadmin.add_tab('版块列表','block-list.html')">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>版块列表</cite>
+                            </a>
+                        </li>
+                    </ul> -->
                 </li>
                 <li>
                     <a href="javascript:;">
@@ -170,12 +186,12 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('组织创建审核','cate.html')">
+                            <a onclick="xadmin.add_tab('组织创建审核','application-list.html')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>组织创建审核</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('组织列表','cate.html')">
+                            <a onclick="xadmin.add_tab('组织列表','organization-list.html')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>组织列表</cite></a>
                         </li>
@@ -198,7 +214,8 @@
                     <a href="javascript:;">
                         <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
                         <cite>评论管理</cite>
-                        <i class="iconfont nav_right">&#xe697;</i></a>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
                     <ul class="sub-menu">
                         <li>
                             <a onclick="xadmin.add_tab('管理员列表','admin-list.html')">
@@ -223,15 +240,17 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:;" onclick="xadmin.add_tab('反馈列表','feedback-list.html')">
                         <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>
                         <cite>反馈管理</cite>
-                        <i class="iconfont nav_right">&#xe697;</i></a>
-                    <ul class="sub-menu">
+                        <!-- <i class="iconfont nav_right">&#xe697;</i> -->
+                    </a>
+                    <!-- <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('拆线图','echarts1.html')">
+                            <a onclick="xadmin.add_tab('反馈列表','feedback-list.html')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>拆线图</cite></a>
+                                <cite>反馈列表</cite>
+                            </a>
                         </li>
                         <li>
                             <a onclick="xadmin.add_tab('拆线图','echarts2.html')">
@@ -281,7 +300,7 @@
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>图标对应字体</cite></a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <!--<li>
                         <a href="javascript:;">
