@@ -27,14 +27,14 @@
                 <div class="layui-card">
                     <div class="layui-card-body ">
                         <form class="layui-form layui-col-space5">
-                            <div class="layui-inline layui-show-xs-block">
+                            <!-- <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                            </div>
+                            </div>-->
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入组织名" autocomplete="off"
+                                <input type="text" name="username" placeholder="请输入版块名" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
@@ -42,15 +42,16 @@
                                         class="layui-icon">&#xe615;</i></button>
                             </div>
                             <div class="layui-inline layui-show-xs-block" style="float:right">
-                                <a class="layui-btn layui-btn-small" style="line-height:1.6em" onclick="location.reload()" title="刷新">
+                                <a class="layui-btn layui-btn-small" style="line-height:1.6em"
+                                    onclick="location.reload()" title="刷新">
                                     <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
                                 </a>
                             </div>
                         </form>
                     </div>
                     <div class="layui-card-header">
-                        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除
-                        </button>
+                        <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除
+                        </button> -->
                         <button class="layui-btn" onclick="xadmin.open('添加版块','./block-add.html',600,400)"><i
                                 class="layui-icon"></i>添加
                         </button>
@@ -68,7 +69,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -251,9 +252,9 @@
                 href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
-                <a title="删除" onclick="block_del(this,${data.id})" href="javascript:;">
+                <!--<a title="删除" onclick="block_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
-                </a>
+                </a>-->
             </td>`);
         form.render('checkbox');
     }

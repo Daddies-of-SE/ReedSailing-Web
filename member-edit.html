@@ -84,10 +84,10 @@
                 var form = layui.form,
                     layer = layui.layer;
 
-                if (isNaN(id)) {
+                if (id == null) {
                     layer.msg('ID错误', { icon: 5 });
                 }
-                if (!isNaN(id)) {
+                else {
                     var index = layer.open({ type: 3, icon: 1 });
                     $.ajax(server + `users/${id}/`, {
                         method: 'GET'
@@ -111,21 +111,6 @@
                     });
                 }
 
-                //自定义验证规则
-                /*form.verify({
-                    nikename: function (value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
-                        }
-                    },
-                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function (value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
-                        }
-                    }
-                });*/
-
                 //监听提交
                 form.on('submit(add)',
                     function (data) {
@@ -136,12 +121,10 @@
                             contentType: 'application/json',
                             data: JSON.stringify(data.field)
                         }).done(function (data) {
-                            //$(obj).parents("tr").remove();
                             layer.msg('修改成功', { icon: 1, time: 1000 });
                         }).fail(function (xhr, status) {
                             console.log(xhr);
                             console.log(status);
-                            //layer.msg("网络错误");
                             if (xhr.status === 400) {
                                 layer.msg('昵称不能为空', { icon: 5 });
                             }
@@ -154,14 +137,6 @@
                         }).always(function () {
                             layer.close(index);
                         });
-                        /*layer.alert("增加成功", {
-                            icon: 6
-                        }, function () {
-                            // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
-                            //关闭当前frame
-                            parent.layer.close(index);
-                        });*/
                         return false;
                     });
 

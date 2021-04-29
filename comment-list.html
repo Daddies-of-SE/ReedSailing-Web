@@ -27,14 +27,14 @@
                 <div class="layui-card">
                     <div class="layui-card-body ">
                         <form class="layui-form layui-col-space5">
-                            <div class="layui-inline layui-show-xs-block">
+                            <!-- <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                            </div>
+                            </div> -->
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入组织名" autocomplete="off"
+                                <input type="text" name="username" placeholder="请输入评论内容" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
@@ -215,6 +215,11 @@
     }
 
     function comment_update(td, data) {
+        for (var key in data) {
+            if (data[key] == null) {
+                data[key] = '';
+            }
+        }
         $(td).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
             <td>${data.id}</td>

@@ -28,12 +28,6 @@
                     <div class="layui-card-body ">
                         <form class="layui-form layui-col-space5">
                             <div class="layui-inline layui-show-xs-block">
-                                <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
-                            </div>
-                            <div class="layui-inline layui-show-xs-block">
-                                <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                            </div>
-                            <div class="layui-inline layui-show-xs-block">
                                 <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
                                     class="layui-input">
                             </div>
@@ -241,12 +235,23 @@
 
     function member_add(data) {
         cnt++;
-        td = document.createElement('tr');
-        td.innerHTML = `
+        var td = document.createElement('tr');
+        member_update(td, data);
+        tbody.appendChild(td);
+        form.render('checkbox');
+    }
+
+    function member_update(td, data) {
+        for (var key in data) {
+            if (data[key] == null) {
+                data[key] = '';
+            }
+        }
+        $(td).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
             <td>${data.id}</td>
             <td>${data.name}</td>
-            <td>${data.avatar}</td>
+            <td><img src="${data.avatar}"></td>
             <td>${data.email}</td>
             <td>${data.sign}</td>
             <td class="td-manage">
@@ -257,9 +262,7 @@
                 <a title="删除" onclick="member_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
-            </td>`;
-        tbody.appendChild(td);
-        form.render('checkbox');
+            </td>`);
     }
 </script>
 

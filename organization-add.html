@@ -36,16 +36,18 @@
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>所有者</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_owner" name="owner" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <select id="L_owner" name="owner" lay-verify="required" lay-search>
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>版块</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_block" name="block" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <select id="L_block" name="block" lay-verify="required" lay-search>
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -55,11 +57,42 @@
             </form>
         </div>
     </div>
-    <script>layui.use(['form', 'layer', 'jquery'],
+    <script>
+        layui.use(['form', 'layer', 'jquery'],
             function () {
                 $ = layui.jquery;
                 var form = layui.form,
                     layer = layui.layer;
+
+                var owner = $('#L_owner');
+                $.ajax(server + 'users/', {
+                    method: 'GET'
+                }).done(function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        insert_option(form, owner, data[i].id, `${data[i].name}(${data[i].id})`);
+                    }
+                }).fail(function (xhr, status) {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", { icon: 2 });
+                }).always(function () {
+                });
+
+                var block = $('#L_block');
+                $.ajax(server + 'blocks/', {
+                    method: 'GET'
+                }).done(function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        insert_option(form, block, data[i].id, `${data[i].name}(${data[i].id})`);
+                    }
+                }).fail(function (xhr, status) {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", { icon: 2 });
+                }).always(function () {
+                });
 
                 //自定义验证规则
                 form.verify({
@@ -109,7 +142,10 @@
                         return false;
                     });
 
-            });</script>
+            });
+
+
+    </script>
 </body>
 
 </html>

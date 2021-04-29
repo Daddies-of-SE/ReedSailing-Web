@@ -104,7 +104,7 @@
                     function (data) {
                         console.log(data.field);
                         var index = layer.open({ type: 3, icon: 1 });
-                        $.ajax(server + `users/${id}/`, {
+                        $.ajax(server + `blocks/${id}/`, {
                             method: 'PUT',
                             contentType: 'application/json',
                             data: JSON.stringify(data.field)

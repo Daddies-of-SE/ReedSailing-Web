@@ -27,14 +27,14 @@
                 <div class="layui-card">
                     <div class="layui-card-body ">
                         <form class="layui-form layui-col-space5">
-                            <div class="layui-inline layui-show-xs-block">
+                            <!-- <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                            </div>
+                            </div> -->
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入组织名" autocomplete="off"
+                                <input type="text" name="username" placeholder="请输入活动名" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
@@ -252,6 +252,27 @@
     }
 
     function activity_update(td, data) {
+        for (var key in data) {
+            if (key === 'review') {
+                if (data[key]) {
+                    data[key] = '是';
+                }
+                else {
+                    data[key] = '否';
+                }
+            }
+            else if (key === 'org') {
+                if (data[key] == null) {
+                    data[key] = '无';
+                }
+                else {
+                    data[key] = data[key].name;
+                }
+            }
+            else if (data[key] == null) {
+                data[key] = '';
+            }
+        }
         $(td).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
             <td>${data.id}</td>
@@ -263,7 +284,7 @@
             <td>${data.contain}</td>
             <td>${data.type.name}</td>
             <td>${data.location.name}</td>
-            <td>${JSON.stringify(data.org)}</td>
+            <td>${data.org}</td>
             <td>${data.block.name}</td>
             <td class="td-manage">
                 <a title="编辑" onclick="activity_edit(this,${data.id})"
