@@ -36,22 +36,24 @@
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>开始时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_begin_time" name="begin_time" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <input type="text" id="L_begin_time" name="begin_time" lay-verify="required|time"
+                            autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>结束时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="end_time" lay-verify="required" autocomplete="off" class="layui-input">
+                        <input type="text" id="L_end_time" name="end_time" lay-verify="required|time" autocomplete="off"
+                            class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>人数限制</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="contain" lay-verify="required" autocomplete="off" class="layui-input">
+                        <input type="text" name="contain" lay-verify="required|positive_int" autocomplete="off"
+                            class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -125,11 +127,12 @@
         </div>
     </div>
     <script>
-        layui.use(['form', 'layer', 'jquery'],
+        layui.use(['form', 'layer', 'jquery', 'laydate'],
             function () {
                 $ = layui.jquery;
                 var form = layui.form,
-                    layer = layui.layer;
+                    layer = layui.layer,
+                    laydate = layui.laydate;
                 window.form = form;
 
                 var owner = $('#L_owner');
@@ -193,17 +196,38 @@
                 }).always(function () {
                 });*/
 
+                laydate.render({
+                    elem: '#L_begin_time',
+                    type: 'datetime',
+                    format: 'yyyy-MM-ddTHH:mm:ss'
+                })
+
+                laydate.render({
+                    elem: '#L_end_time',
+                    type: 'datetime',
+                    format: 'yyyy-MM-ddTHH:mm:ss'
+                })
+
+
                 //自定义验证规则
+                var date = new Date();
                 form.verify({
-                    nikename: function (value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
+                    time: function (value, item) {
+                        if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
+                            return '时间格式必须为yyyy-MM-ddTHH:mm:ss';
+                        }
+                        timestamp = Date.parse(value);
+                        if (isNaN(timestamp)) {
+                            return '时间范围非法';
+                        }
+                        if (timestamp < date.getTime()) {
+                            return '时间不能早于当前时间';
                         }
                     },
-                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function (value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
+                    positive_int: function (value, item) {
+                        console.log(value);
+                        if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+                            return '人数必须是正整数';
                         }
                     }
                 });
@@ -212,6 +236,13 @@
                 form.on('submit(add)',
                     function (data) {
                         console.log(data);
+                        if (!time_check(data.field.begin_time, data.field.end_time)) {
+                            layer.msg('开始时间不能晚于结束时间', {
+                                icon: 5,
+                                anim: 6,
+                            })
+                            return false;
+                        }
                         $.ajax(server + 'activities/', {
                             method: 'POST',
                             contentType: 'application/json',

@@ -55,15 +55,15 @@
                     <label for="L_name" class="layui-form-label">
                         <span class="x-red">*</span>开始时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_begin_time" name="begin_time" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <input type="text" id="L_begin_time" name="begin_time" lay-verify="required|time"
+                            autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_name" class="layui-form-label">
                         <span class="x-red">*</span>结束时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_end_time" name="end_time" lay-verify="required" autocomplete="off"
+                        <input type="text" id="L_end_time" name="end_time" lay-verify="required|time" autocomplete="off"
                             class="layui-input">
                     </div>
                 </div>
@@ -86,23 +86,26 @@
                     <label for="L_avatar" class="layui-form-label">
                         <span class="x-red">*</span>人数上限</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_contain" name="contain" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <input type="text" id="L_contain" name="contain" lay-verify="required|positive_int"
+                            autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_avatar" class="layui-form-label">
                         活动种类</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_type" name="type" autocomplete="off" class="layui-input">
+                        <select id="L_type" name="type" lay-search>
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_name" class="layui-form-label">
                         <span class="x-red">*</span>地点</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_location" name="location" lay-verify="required" autocomplete="off"
-                            class="layui-input">
+                        <select id="L_location" name="location" lay-verify="required" lay-search>
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -129,20 +132,52 @@
         </div>
     </div>
     <script>
-        layui.use(['form', 'layer'],
+        layui.use(['form', 'layer', 'laydate'],
             function () {
                 var id = localStorage.activity_id_edit;
                 localStorage.removeItem('activity_id_edit');
                 console.log(id);
                 $ = layui.jquery;
                 var form = layui.form,
-                    layer = layui.layer;
+                    layer = layui.layer,
+                    laydate = layui.laydate;
 
                 if (isNaN(id)) {
                     layer.msg('ID错误', { icon: 5 });
                 }
-                if (!isNaN(id)) {
+                else {
                     var index = layer.open({ type: 3, icon: 1 });
+                    //TODO:更新查询种类和地点的URL
+                    /*var type = $('#L_type');
+                    $.ajax(server + 'type/', {
+                        method: 'GET'
+                    }).done(function (data) {
+                        console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            insert_option(form, type, data[i].id, `${data[i].name}(${data[i].id})`);
+                        }
+                    }).fail(function (xhr, status) {
+                        console.log(xhr);
+                        console.log(status);
+                        layer.msg("网络错误", { icon: 2 });
+                    }).always(function () {
+                    });
+    
+                    var location = $('#L_location');
+                    $.ajax(server + 'location/', {
+                        method: 'GET'
+                    }).done(function (data) {
+                        console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            insert_option(form, location, data[i].id, `${data[i].name}(${data[i].id})`);
+                        }
+                    }).fail(function (xhr, status) {
+                        console.log(xhr);
+                        console.log(status);
+                        layer.msg("网络错误", { icon: 2 });
+                    }).always(function () {
+                    });*/
+
                     $.ajax(server + `activities/${id}/`, {
                         method: 'GET'
                     }).done(function (data) {
@@ -157,7 +192,7 @@
                         $('#L_contain').val(data.contain);
                         $('#L_type').val(data.type.id);
                         $('#L_location').val(data.location.id);
-                        $('#L_org').val(JSON.stringify(data.org));
+                        $('#L_org').val(data.org.name);
                         $('#L_block').val(data.block.name);
                     }).fail(function (xhr, status) {
                         console.log(xhr);
@@ -173,25 +208,53 @@
                     });
                 }
 
+                laydate.render({
+                    elem: '#L_begin_time',
+                    type: 'datetime',
+                    format: 'yyyy-MM-ddTHH:mm:ss',
+                    position: 'fixed'
+                })
+
+                laydate.render({
+                    elem: '#L_end_time',
+                    type: 'datetime',
+                    format: 'yyyy-MM-ddTHH:mm:ss'
+                })
+
                 //自定义验证规则
-                /*form.verify({
-                    nikename: function (value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
+                var date = new Date();
+                form.verify({
+                    time: function (value, item) {
+                        if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
+                            return '时间格式必须为yyyy-MM-ddTHH:mm:ss';
+                        }
+                        timestamp = Date.parse(value);
+                        if (isNaN(timestamp)) {
+                            return '时间范围非法';
+                        }
+                        if (timestamp < date.getTime()) {
+                            return '时间不能早于当前时间';
                         }
                     },
-                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function (value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
+                    positive_int: function (value, item) {
+                        console.log(value);
+                        if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+                            return '人数必须是正整数';
                         }
                     }
-                });*/
+                });
 
                 //监听提交
                 form.on('submit(add)',
                     function (data) {
                         console.log(data.field);
+                        if (!time_check(data.field.begin_time, data.field.end_time)) {
+                            layer.msg('开始时间不能晚于结束时间', {
+                                icon: 5,
+                                anim: 6,
+                            })
+                            return false;
+                        }
                         var index = layer.open({ type: 3, icon: 1 });
                         $.ajax(server + `activities/${id}/`, {
                             method: 'PUT',

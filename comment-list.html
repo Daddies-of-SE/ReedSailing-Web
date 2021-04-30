@@ -93,9 +93,10 @@
 </body>
 <script>
     var cnt, tbody;
-    layui.use(['laydate', 'form'], function () {
-        var laydate = layui.laydate;
-        window.form = layui.form;
+    layui.use(['laydate', 'form', 'rate'], function () {
+        var laydate = layui.laydate,
+            form = window.form = layui.form,
+            rate = window.rate = layui.rate;
 
         cnt = 0;
         tbody = document.getElementsByTagName('tbody')[0];
@@ -208,31 +209,37 @@
 
     function comment_add(data) {
         cnt++;
-        var td = document.createElement('tr');
-        comment_update(td, data);
-        tbody.appendChild(td);
+        var tr = document.createElement('tr');
+        comment_update(tr, data);
+        tbody.appendChild(tr);
         form.render('checkbox');
     }
 
-    function comment_update(td, data) {
+    function comment_update(tr, data) {
         for (var key in data) {
             if (data[key] == null) {
                 data[key] = '';
             }
         }
-        $(td).html(`
+        $(tr).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
             <td>${data.id}</td>
             <td>${data.user.name}</td>
             <td>${data.content}</td>
             <td>${data.pub_time}</td>
-            <td>${data.score}</td>
+            <td><div id="rate${data.id}"></div></td>
             <td>${data.act.name}</td>
             <td class="td-manage">
                 <a title="删除" onclick="comment_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>`);
+        rate.render({
+            elem: $(tr).children('td').children(`#rate${data.id}`),
+            value: parseFloat(data.score),
+            half: true,
+            readonly: true
+        })
         form.render('checkbox');
     }
 </script>
