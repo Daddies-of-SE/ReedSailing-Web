@@ -1,4 +1,4 @@
-server = 'http://114.116.94.235/';
+server = 'https://reedsailing.xyz/';
 
 function insert_option(form, select, value, content) {
     var option = document.createElement('option');
