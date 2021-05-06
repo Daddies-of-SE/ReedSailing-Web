@@ -223,41 +223,24 @@
                 owner: owner,
                 block: block
             };
-            $.ajax(server + 'organizations/', {
-                method: 'POST',
+            $.ajax(server + `organizations/applications/verifications/${id}/`, {
+                method: 'PUT',
                 contentType: 'application/json',
-                data: JSON.stringify(send_data)
+                data: JSON.stringify({ status: status })
             }).done(function (data) {
-                $.ajax(server + `organizations/applications/verifications/${id}/`, {
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ status: status })
-                }).done(function (data) {
-                    layer.msg('审批完成', { icon: 6 });
-                }).fail(function (xhr, status) {
-                    if (xhr.status === 400) {
-                        layer.msg("该申请已被处理", { icon: 5 });
-                    }
-                    else if (xhr.status === 404) {
-                        layer.msg("该申请不存在", { icon: 5 });
-                    }
-                    else {
-                        console.log(xhr);
-                        console.log(status);
-                        layer.msg("网络错误", { icon: 2 });
-                    }
-                });
+                layer.msg('审批完成', { icon: 6 });
             }).fail(function (xhr, status) {
                 if (xhr.status === 400) {
-                    layer.msg(`组织 ${name} 已存在`, { icon: 5 });
+                    layer.msg("该申请已被处理", { icon: 5 });
+                }
+                else if (xhr.status === 404) {
+                    layer.msg("该申请不存在", { icon: 5 });
                 }
                 else {
                     console.log(xhr);
                     console.log(status);
                     layer.msg("网络错误", { icon: 2 });
                 }
-            }).always(function () {
-                layer.close(index);
             });
         }
         else if (status === 2) {

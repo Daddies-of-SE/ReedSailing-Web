@@ -147,9 +147,9 @@
                 }
                 else {
                     var index = layer.open({ type: 3, icon: 1 });
-                    //TODO:更新查询种类和地点的URL
-                    /*var type = $('#L_type');
-                    $.ajax(server + 'type/', {
+                    
+                    var type = $('#L_type');
+                    $.ajax(server + 'activities/categories/', {
                         method: 'GET'
                     }).done(function (data) {
                         console.log(data);
@@ -164,7 +164,7 @@
                     });
     
                     var location = $('#L_location');
-                    $.ajax(server + 'location/', {
+                    $.ajax(server + 'activities/addresses/', {
                         method: 'GET'
                     }).done(function (data) {
                         console.log(data);
@@ -176,7 +176,7 @@
                         console.log(status);
                         layer.msg("网络错误", { icon: 2 });
                     }).always(function () {
-                    });*/
+                    });
 
                     $.ajax(server + `activities/${id}/`, {
                         method: 'GET'
@@ -194,6 +194,7 @@
                         $('#L_location').val(data.location.id);
                         $('#L_org').val(data.org.name);
                         $('#L_block').val(data.block.name);
+                        form.render('select');
                     }).fail(function (xhr, status) {
                         console.log(xhr);
                         console.log(status);
