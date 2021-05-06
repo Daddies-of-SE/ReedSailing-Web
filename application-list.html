@@ -241,6 +241,8 @@
                     console.log(status);
                     layer.msg("网络错误", { icon: 2 });
                 }
+            }).always(function(){
+                layer.close(index);
             });
         }
         else if (status === 2) {
@@ -252,10 +254,10 @@
                 layer.msg('审批完成', { icon: 6 });
             }).fail(function (xhr, status) {
                 if (xhr.status === 400) {
-                    layer.msg("该申请已被处理", { icon: 6 });
+                    layer.msg("该申请已被处理", { icon: 5 });
                 }
                 else if (xhr.status === 404) {
-                    layer.msg("该申请不存在", { icon: 6 });
+                    layer.msg("该申请不存在", { icon: 5 });
                 }
                 else {
                     console.log(xhr);
