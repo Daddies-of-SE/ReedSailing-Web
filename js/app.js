@@ -1,4 +1,4 @@
-server = 'https://reedsailing.xyz/';
+server = 'https://reedsailing.xyz/api/';
 
 function insert_option(form, select, value, content) {
     var option = document.createElement('option');
