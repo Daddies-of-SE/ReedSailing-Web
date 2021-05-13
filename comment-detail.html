@@ -94,13 +94,12 @@
                     $.ajax(server + `activities/comments/${id}/`, {
                         method: 'GET'
                     }).done(function (data) {
-                        // TODO score
-                        $('#L_id').val(data.id);
-                        $('#L_username').val(data.user.name);
+                        // $('#L_id').val(data.id);
+                        // $('#L_username').val(data.user.name);
                         $('#L_content').val(data.content);
-                        $('#L_pub_time').val(data.pub_time);
+                        // $('#L_pub_time').val(data.pub_time);
                         $('#L_score').val(data.score);
-                        $('#L_act_name').val(data.act.name);
+                        // $('#L_act_name').val(data.act.name);
                     }).fail(function (xhr, status) {
                         console.log(xhr);
                         console.log(status);
