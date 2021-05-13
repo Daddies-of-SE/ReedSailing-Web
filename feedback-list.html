@@ -197,6 +197,13 @@
             del_req(obj, id, false);
         });
     }
+    
+    /*详情*/
+    function feedbk_show(obj, id) {
+        localStorage.feedbk_id_show = id;
+        xadmin.open('查看', 'feedbk_detail.html', 600, 400);
+    }
+
 
     function delAll(argument) {
         var ids = [];
@@ -248,6 +255,9 @@
             <td>${data.pub_time}</td>
             <td>${data.user}</td>
             <td class="td-manage">
+                <a title="详情" onclick="feedbk_show(this,${data.id})" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i>
+                </a>
                 <a title="删除" onclick="feedbk_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
