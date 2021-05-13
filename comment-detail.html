@@ -33,10 +33,10 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_user.name" class="layui-form-label">
+                    <label for="L_username" class="layui-form-label">
                         用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_user.name" disabled="disabled" autocomplete="off" class="layui-input"
+                        <input type="text" id="L_username" disabled="disabled" autocomplete="off" class="layui-input"
                         style="background:#d6d6d6">
                     </div>
                 </div>
@@ -58,18 +58,18 @@
                 </div>
                 <!-- TODO -->
                 <div class="layui-form-item">
-                    <label for="L_content" class="layui-form-label">
+                    <label for="L_score" class="layui-form-label">
                         评分</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_content" disabled="disabled" autocomplete="off" class="layui-input"
+                        <input type="text" id="L_score" disabled="disabled" autocomplete="off" class="layui-input"
                             style="background:#d6d6d6">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_act.name" class="layui-form-label">
+                    <label for="L_act_name" class="layui-form-label">
                         活动名</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_act.name" disabled="disabled" autocomplete="off" class="layui-input"
+                        <input type="text" id="L_act_name" disabled="disabled" autocomplete="off" class="layui-input"
                             style="background:#d6d6d6">
                     </div>
                 </div>
@@ -91,19 +91,21 @@
                 }
                 else {
                     var index = layer.open({ type: 3, icon: 1 });
-                    $.ajax(server + `users/${id}/`, {
+                    $.ajax(server + `activities/comments/${id}/`, {
                         method: 'GET'
                     }).done(function (data) {
-                        // TODO
+                        // TODO score
                         $('#L_id').val(data.id);
+                        $('#L_username').val(data.user.name);
                         $('#L_content').val(data.content);
                         $('#L_pub_time').val(data.pub_time);
-                        $('#L_user').val(data.user);
+                        $('#L_score').val(data.score);
+                        $('#L_act_name').val(data.act.name);
                     }).fail(function (xhr, status) {
                         console.log(xhr);
                         console.log(status);
                         if (xhr.status === 404) {
-                            layer.msg('该反馈不存在', { icon: 5 });
+                            layer.msg('该评论不存在', { icon: 5 });
                         }
                         else {
                             layer.msg("网络错误", { icon: 2 });

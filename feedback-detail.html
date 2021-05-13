@@ -74,7 +74,7 @@
                 }
                 else {
                     var index = layer.open({ type: 3, icon: 1 });
-                    $.ajax(server + `users/${id}/`, {
+                    $.ajax(server + `feedbacks/${id}/`, {
                         method: 'GET'
                     }).done(function (data) {
                         $('#L_id').val(data.id);
