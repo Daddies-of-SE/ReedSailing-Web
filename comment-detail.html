@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>用户编辑-一苇以航</title>
+    <title>评论详情-一苇以航</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -28,16 +28,16 @@
                     <label for="L_id" class="layui-form-label">
                         ID</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_id" autocomplete="off" class="layui-input" disabled="disabled"
+                        <input type="text" id="L_id" disabled="disabled" autocomplete="off" class="layui-input"
                             style="background:#d6d6d6">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_username" class="layui-form-label">
-                        <span class="x-red">*</span>用户名</label>
+                    <label for="L_user.name" class="layui-form-label">
+                        用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_username" disabled="disabled" autocomplete="off"
-                            class="layui-input">
+                        <input type="text" id="L_user.name" disabled="disabled" autocomplete="off" class="layui-input"
+                        style="background:#d6d6d6">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -49,24 +49,37 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        Email</label>
+                    <label for="L_content" class="layui-form-label">
+                        内容</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_email" disabled="disabled" autocomplete="off" class="layui-input"
+                        <input type="text" id="L_content" disabled="disabled" autocomplete="off" class="layui-input"
                             style="background:#d6d6d6">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_sign" class="layui-form-label">
-                        签名</label>
+                    <label for="L_pub_time" class="layui-form-label">
+                        发布时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_sign" name="sign" lay-verify="sign" autocomplete="off"
-                            class="layui-input">
+                        <input type="text" id="L_pub_time" disabled="disabled" autocomplete="off" class="layui-input"
+                            style="background:#d6d6d6">
+                    </div>
+                </div>
+                <!-- TODO -->
+                <div class="layui-form-item">
+                    <label for="L_content" class="layui-form-label">
+                        评分</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_content" disabled="disabled" autocomplete="off" class="layui-input"
+                            style="background:#d6d6d6">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_repass" class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="">提交</button>
+                    <label for="L_act.name" class="layui-form-label">
+                        活动名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_act.name" disabled="disabled" autocomplete="off" class="layui-input"
+                            style="background:#d6d6d6">
+                    </div>
                 </div>
             </form>
         </div>
