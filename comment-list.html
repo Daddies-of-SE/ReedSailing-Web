@@ -177,6 +177,12 @@
             del_req(obj, id, false);
         });
     }
+    
+    function comment_show(obj, id) {
+        localStorage.comment_id_show = id;
+        xadmin.open('查看', 'comment_detail.html', 600, 400);
+    }
+
 
     function delAll(argument) {
         var ids = [];
@@ -230,6 +236,9 @@
             <td><div id="rate${data.id}"></div></td>
             <td>${data.act.name}</td>
             <td class="td-manage">
+                <a title="详情" onclick="comment_show(this,${data.id})" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i>
+                </a>
                 <a title="删除" onclick="comment_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
