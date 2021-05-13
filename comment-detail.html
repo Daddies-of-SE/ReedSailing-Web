@@ -76,6 +76,45 @@
             </form>
         </div>
     </div>
+    <script>
+        layui.use(['form', 'layer'],
+            function () {
+                var id = localStorage.comment_id_show;
+                localStorage.removeItem('comment_id_show');
+                console.log(id);
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer;
+
+                if (id == null) {
+                    layer.msg('ID错误', { icon: 5 });
+                }
+                else {
+                    var index = layer.open({ type: 3, icon: 1 });
+                    $.ajax(server + `users/${id}/`, {
+                        method: 'GET'
+                    }).done(function (data) {
+                        // TODO
+                        $('#L_id').val(data.id);
+                        $('#L_content').val(data.content);
+                        $('#L_pub_time').val(data.pub_time);
+                        $('#L_user').val(data.user);
+                    }).fail(function (xhr, status) {
+                        console.log(xhr);
+                        console.log(status);
+                        if (xhr.status === 404) {
+                            layer.msg('该反馈不存在', { icon: 5 });
+                        }
+                        else {
+                            layer.msg("网络错误", { icon: 2 });
+                        }
+                    }).always(function () {
+                        layer.close(index);
+                    });
+                }
+
+            });</script>
+
 </body>
 
 </html>
