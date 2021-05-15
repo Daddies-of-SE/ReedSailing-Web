@@ -119,7 +119,7 @@
                             }
                         }).fail(function (xhr, status) {
                             console.log(xhr.status)
-                            layer.msg("网络错误", { icon: 2 });
+                            layer.msg("当前未开启超级管理员注册功能", { icon: 2 });
                         }).always(function () {
                             layer.close(index);
                         });
