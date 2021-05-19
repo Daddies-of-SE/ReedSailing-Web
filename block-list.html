@@ -99,16 +99,40 @@
         cnt = 0;
         tbody = document.getElementsByTagName('tbody')[0];
 
-        // 监听全选
-        form.on('checkbox(checkall)', function (data) {
+        // // 监听全选
+        // form.on('checkbox(checkall)', function (data) {
 
-            if (data.elem.checked) {
-                $('tbody input').prop('checked', true);
-            } else {
-                $('tbody input').prop('checked', false);
-            }
-            form.render('checkbox');
-        });
+        //     if (data.elem.checked) {
+        //         $('tbody input').prop('checked', true);
+        //     } else {
+        //         $('tbody input').prop('checked', false);
+        //     }
+        //     form.render('checkbox');
+        // });
+
+	
+		form.render();
+		// 实现 全选 反选
+        form.on('checkbox(checkall)',function(data){
+			$(this).parent().parent().parent().siblings("tbody").find("input").prop("checked",this.checked);
+			form.render('checkbox');
+		});
+		/**
+		 * 以下代码实现:
+		 * 1 当子项全部选中时,全选被选中
+		 * 2 当子项未全部选中时,全选不选中
+		 */
+		form.on('checkbox(authority)',function(data){
+			if(this.checked){//当子项全部选中时,全选被选中
+				if($(this).parent().parent().siblings("tr").find("input").not("input:checked").length === 0){
+					$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",true);
+					form.render('checkbox');
+				}
+			} else { // 子项未选中 全选不选中
+				$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",false);
+				form.render('checkbox');
+			}
+		});
 
         //执行一个laydate实例
         laydate.render({
@@ -244,7 +268,7 @@
 
     function block_update(td, data) {
         $(td).html(`
-            <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"></td>
+            <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
             <td>${data.id}</td>
             <td>${data.name}</td>
             <td class="td-manage">
