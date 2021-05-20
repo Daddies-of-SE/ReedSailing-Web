@@ -34,11 +34,11 @@
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
                             </div> -->
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入活动名" autocomplete="off"
+                                <input type="text" name="keyword" placeholder="请输入活动名" id="searchBtn" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
+                                <button type="button" class="layui-btn" lay-submit="" lay-filter="sreach"><i
                                         class="layui-icon">&#xe615;</i></button>
                             </div>
                             <div class="layui-inline layui-show-xs-block" style="float:right">
@@ -101,8 +101,9 @@
 </body>
 <script>
     var cnt, tbody;
-    layui.use(['laydate', 'form'], function () {
-        var laydate = layui.laydate;
+    layui.use(['laydate', 'form', 'table'], function () {
+        var laydate = layui.laydate,
+            table = layui.table;
         window.form = layui.form;
 
         cnt = 0;
@@ -171,7 +172,36 @@
         }).always(function () {
             layer.close(index);
         });
+
+        var a = table.render({
+            elem: "#test"});
+
+        $('#searchBtn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        var active = {
+        	    reload: function(){
+        	      var demoReload = $('#demoReload');	//得到搜索框里已输入的数据   	      
+        	      //执行重载
+        	      table.reload('test', {
+        	        page: {
+        	          curr: 1 //重新从第 1 页开始
+        	        }
+        	        ,where: {
+        	          name:  demoReload.val()		//在表格中进行搜索
+        	        }
+        	      });
+        	    }
+        	  };
+        	  
+        	//   $('#btn .layui-btn').on('click', function(){
+        	//     var type = $(this).data('type');
+        	//     active[type] ? active[type].call(this) : '';
+        	//   });
     });
+    
 
     /*用户-停用*/
     function app_stop(obj, id) {
