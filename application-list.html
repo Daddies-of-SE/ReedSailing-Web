@@ -93,6 +93,7 @@
     </div>
 </body>
 <script>
+    headers = {'token': localStorage.token};
     var cnt, tbody;
     layui.use(['laydate', 'form'], function () {
         var laydate = layui.laydate;
@@ -151,7 +152,8 @@
             icon: 1
         });
         $.ajax(server + 'organizations/applications/', {
-            method: 'GET'
+            method: 'GET',
+            headers: headers
         }).done(function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
@@ -192,7 +194,8 @@
     function del_req(obj, id, silence) {
         var result = false;
         $.ajax(server + `organizations/applications/${id}/`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: headers
         }).done(function (data) {
             $(obj).parents("tr").remove();
             if (!silence) {
@@ -250,7 +253,8 @@
             $.ajax(server + `organizations/applications/verifications/${id}/`, {
                 method: 'PUT',
                 contentType: 'application/json',
-                data: JSON.stringify({ status: status })
+                data: JSON.stringify({ status: status }),
+                headers: headers
             }).done(function (data) {
                 layer.msg('审批完成', { icon: 6 });
             }).fail(function (xhr, status) {
@@ -273,7 +277,8 @@
             $.ajax(server + `organizations/applications/verifications/${id}/`, {
                 method: 'PUT',
                 contentType: 'application/json',
-                data: JSON.stringify({ status: status })
+                data: JSON.stringify({ status: status }),
+                headers: headers
             }).done(function (data) {
                 layer.msg('审批完成', { icon: 6 });
             }).fail(function (xhr, status) {

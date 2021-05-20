@@ -92,6 +92,7 @@
     </div>
 </body>
 <script>
+    headers = {'token': localStorage.token};
     var cnt, tbody;
     layui.use(['laydate', 'form', 'rate'], function () {
         var laydate = layui.laydate,
@@ -151,7 +152,8 @@
             icon: 1
         });
         $.ajax(server + 'activities/comments/', {
-            method: 'GET'
+            method: 'GET',
+            headers: headers
         }).done(function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
@@ -169,7 +171,8 @@
     function del_req(obj, id, silence) {
         var result = false;
         $.ajax(server + `activities/comments/${id}/`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: headers
         }).done(function (data) {
             $(obj).parents("tr").remove();
             if (!silence) {

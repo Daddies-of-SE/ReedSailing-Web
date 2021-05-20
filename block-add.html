@@ -39,7 +39,9 @@
             </form>
         </div>
     </div>
-    <script>layui.use(['form', 'layer', 'jquery'],
+    <script>
+        headers = {'token': localStorage.token};
+        layui.use(['form', 'layer', 'jquery'],
             function () {
                 $ = layui.jquery;
                 var form = layui.form,
@@ -67,7 +69,8 @@
                         $.ajax(server + `blocks/`, {
                             method: 'POST',
                             data: JSON.stringify(data.field),
-                            contentType: 'application/json'
+                            contentType: 'application/json',
+                            headers: headers
                         }).done(function (data) {
                             layer.alert("增加成功", {
                                 icon: 1,

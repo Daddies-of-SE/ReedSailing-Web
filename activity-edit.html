@@ -132,6 +132,7 @@
         </div>
     </div>
     <script>
+        headers = {'token': localStorage.token};
         layui.use(['form', 'layer', 'laydate'],
             function () {
                 var id = localStorage.activity_id_edit;
@@ -150,7 +151,8 @@
                     
                     var type = $('#L_type');
                     $.ajax(server + 'activities/categories/', {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: headers
                     }).done(function (data) {
                         console.log(data);
                         for (var i = 0; i < data.length; i++) {
@@ -165,7 +167,8 @@
     
                     var location = $('#L_location');
                     $.ajax(server + 'activities/addresses/', {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: headers
                     }).done(function (data) {
                         console.log(data);
                         for (var i = 0; i < data.length; i++) {
@@ -179,7 +182,8 @@
                     });
 
                     $.ajax(server + `activities/${id}/`, {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: headers
                     }).done(function (data) {
                         console.log(data);
                         $('#L_id').val(data.id);
@@ -260,7 +264,8 @@
                         $.ajax(server + `activities/${id}/`, {
                             method: 'PUT',
                             contentType: 'application/json',
-                            data: JSON.stringify(data.field)
+                            data: JSON.stringify(data.field),
+                            headers: headers
                         }).done(function (data) {
                             //$(obj).parents("tr").remove();
                             layer.msg('修改成功', { icon: 1, time: 1000 });

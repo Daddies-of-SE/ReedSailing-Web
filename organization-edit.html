@@ -89,6 +89,7 @@
         </div>
     </div>
     <script>
+        headers = {'token': localStorage.token};
         layui.use(['form', 'layer'],
             function () {
                 var id = localStorage.org_id_edit;
@@ -104,7 +105,8 @@
                 if (!isNaN(id)) {
                     var index = layer.open({ type: 3, icon: 1 });
                     $.ajax(server + `organizations/${id}/`, {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: headers
                     }).done(function (data) {
                         $('#L_id').val(data.id);
                         $('#L_name').val(data.name);
@@ -150,7 +152,8 @@
                         $.ajax(server + `organizations/${id}/`, {
                             method: 'PUT',
                             contentType: 'application/json',
-                            data: JSON.stringify(data.field)
+                            data: JSON.stringify(data.field),
+                            headers: headers
                         }).done(function (data) {
                             //$(obj).parents("tr").remove();
                             layer.msg('修改成功', { icon: 1, time: 1000 });

@@ -86,6 +86,7 @@
     </div>
 </body>
 <script>
+    headers = {'token': localStorage.token};
     var cnt, tbody;
     layui.use(['laydate', 'form'], function () {
         var laydate = layui.laydate;
@@ -144,7 +145,8 @@
             icon: 1
         });
         $.ajax(server + 'users/', {
-            method: 'GET'
+            method: 'GET',
+            headers: headers
         }).done(function (data) {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
@@ -189,7 +191,8 @@
         layer.confirm('确认要删除吗？', function (index) {
             //发异步删除数据
             $.ajax(server + `users/${id}/`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: headers
             }).done(function (data) {
                 $(obj).parents("tr").remove();
                 layer.msg('已删除!', { icon: 1, time: 1000 });
@@ -234,7 +237,8 @@
             var status = true;
             for (var i = 0; i < ids.length; i++) {
                 $.ajax(server + `users/${ids[i]}/`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: headers
                 }).done(function (data) {
                     $(elems[i]).parents("tr").remove();
                     //layer.msg('已删除!', { icon: 1, time: 1000 });

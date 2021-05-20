@@ -57,6 +57,7 @@
         </div>
     </div>
     <script>
+        headers = {'token': localStorage.token};
         layui.use(['form', 'layer'],
             function () {
                 var id = localStorage.feedbk_id_show;
@@ -72,7 +73,8 @@
                 else {
                     var index = layer.open({ type: 3, icon: 1 });
                     $.ajax(server + `feedbacks/${id}/`, {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: headers
                     }).done(function (data) {
                         $('#L_id').val(data.id);
                         $('#L_content').val(data.content);
