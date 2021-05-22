@@ -93,7 +93,7 @@
     </div>
 </body>
 <script>
-    headers = {'token': localStorage.token};
+    headers = { 'token': localStorage.token };
     var cnt, tbody;
     layui.use(['laydate', 'form'], function () {
         var laydate = layui.laydate;
@@ -113,29 +113,29 @@
         //     form.render('checkbox');
         // });
 
-	
-		form.render();
-		// 实现 全选 反选
-        form.on('checkbox(checkall)',function(data){
-			$(this).parent().parent().parent().siblings("tbody").find("input").prop("checked",this.checked);
-			form.render('checkbox');
-		});
-		/**
-		 * 以下代码实现:
-		 * 1 当子项全部选中时,全选被选中
-		 * 2 当子项未全部选中时,全选不选中
-		 */
-		form.on('checkbox(authority)',function(data){
-			if(this.checked){//当子项全部选中时,全选被选中
-				if($(this).parent().parent().siblings("tr").find("input").not("input:checked").length === 0){
-					$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",true);
-					form.render('checkbox');
-				}
-			} else { // 子项未选中 全选不选中
-				$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",false);
-				form.render('checkbox');
-			}
-		});
+
+        form.render();
+        // 实现 全选 反选
+        form.on('checkbox(checkall)', function (data) {
+            $(this).parent().parent().parent().siblings("tbody").find("input").prop("checked", this.checked);
+            form.render('checkbox');
+        });
+        /**
+         * 以下代码实现:
+         * 1 当子项全部选中时,全选被选中
+         * 2 当子项未全部选中时,全选不选中
+         */
+        form.on('checkbox(authority)', function (data) {
+            if (this.checked) {//当子项全部选中时,全选被选中
+                if ($(this).parent().parent().siblings("tr").find("input").not("input:checked").length === 0) {
+                    $(this).parent().parent().parent().siblings("thead").find('input').prop("checked", true);
+                    form.render('checkbox');
+                }
+            } else { // 子项未选中 全选不选中
+                $(this).parent().parent().parent().siblings("thead").find('input').prop("checked", false);
+                form.render('checkbox');
+            }
+        });
 
         //执行一个laydate实例
         laydate.render({
@@ -192,7 +192,7 @@
     }
 
     function del_req(obj, id, silence) {
-        var result = false;
+        var result = true;
         $.ajax(server + `organizations/applications/${id}/`, {
             method: 'DELETE',
             headers: headers
@@ -269,7 +269,7 @@
                     console.log(status);
                     layer.msg("网络错误", { icon: 2 });
                 }
-            }).always(function(){
+            }).always(function () {
                 layer.close(index);
             });
         }
@@ -329,12 +329,12 @@
             for (var i = 0; i < ids.length; i++) {
                 status &= del_req(elems[i], ids[i], true);
             }
-            if (status === true) {
-                layer.msg('删除成功', { icon: 1 });
-            }
-            else {
-                layer.msg('部分申请未能成功删除，请再次尝试', { icon: 5 });
-            }
+            // if (status === true) {
+            layer.msg('删除成功', { icon: 1 });
+            // }
+            // else {
+            // layer.msg('部分申请未能成功删除，请再次尝试', { icon: 5 });
+            // }
             //$(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }

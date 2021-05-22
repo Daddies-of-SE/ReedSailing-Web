@@ -127,7 +127,7 @@
         </div>
     </div>
     <script>
-        headers = {'token': localStorage.token};
+        headers = { 'token': localStorage.token };
         layui.use(['form', 'layer', 'jquery', 'laydate'],
             function () {
                 $ = layui.jquery;
@@ -203,13 +203,15 @@
                 laydate.render({
                     elem: '#L_begin_time',
                     type: 'datetime',
-                    format: 'yyyy-MM-ddTHH:mm:ss'
+                    format: 'yyyy-MM-ddTHH:mm:ss',
+                    trigger: 'click',
                 })
 
                 laydate.render({
                     elem: '#L_end_time',
                     type: 'datetime',
-                    format: 'yyyy-MM-ddTHH:mm:ss'
+                    format: 'yyyy-MM-ddTHH:mm:ss',
+                    trigger: 'click',
                 })
 
 
