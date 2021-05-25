@@ -68,7 +68,6 @@
                         data: JSON.stringify(data.field)
                     }).done(function (data_res) {
                         if (data_res.success === 'true') { //login success
-                            localStorage.username = data.field.username;
                             localStorage.token = data_res.token;
                             location.href = 'index.html';
                         }

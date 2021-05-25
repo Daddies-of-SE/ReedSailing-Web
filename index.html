@@ -24,14 +24,40 @@
     <script>
         // 是否开启刷新记忆tab功能
         var is_remember = false;
-        username = localStorage.username;
-        //localStorage.removeItem('username');
-        if (username == null) {
+        var token = localStorage.token;
+        var username = null;
+        if (token == null) {
             location.href = 'login.html';
         }
-        $(function (params) {
-            $('#username').text(username)
-        })
+        layui.use('layer', function () {
+            var index = layer.open({
+                type: 3,
+                icon: 1
+            });
+            $.ajax(server + 'identify/', {
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ token: token })
+            }).done(function (data_res) {
+                if (data_res.status === 1) { //login success
+                    username = data_res.name;
+                    $('#username').text(username);
+                }
+                else { //login fail
+                    localStorage.removeItem('token');
+                    location.href = 'login.html';
+                }
+            }).fail(function (xhr, status) {
+                console.log(xhr);
+                console.log(status);
+                layer.msg("网络错误", { icon: 2 });
+            }).always(function () {
+                layer.close(index);
+            });
+        });
+        function logout() {
+            localStorage.removeItem('token');
+        }
     </script>
 </head>
 
@@ -83,7 +109,7 @@
                         <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a>
                     </dd> -->
                     <dd>
-                        <a href="./login.html">退出</a>
+                        <a href="./login.html" onclick="logout()">退出</a>
                     </dd>
                 </dl>
             </li>
@@ -146,24 +172,25 @@
                 </li> -->
                 <li>
                     <a href="javascript:;" onclick="xadmin.add_tab('用户管理','member-list.html')">
-<!--                        <i class="iconfont left-nav-li layui-icon-username" lay-tips="用户管理"></i>-->
+                        <!--                        <i class="iconfont left-nav-li layui-icon-username" lay-tips="用户管理"></i>-->
                         <i class="iconfont left-nav-li" lay-tips="用户管理">&#xe723;</i>
                         <cite>用户管理</cite>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:;" onclick="xadmin.add_tab('版块管理','block-list.html')">
-<!--                        <i class="iconfont left-nav-li" lay-tips="版块管理">&#xe653;</i>-->
+                        <!--                        <i class="iconfont left-nav-li" lay-tips="版块管理">&#xe653;</i>-->
                         <i class="iconfont left-nav-li" lay-tips="版块管理">&#xe723;</i>
                         <cite>版块管理</cite>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:;">
-<!--                        <i class="iconfont left-nav-li" lay-tips="组织管理">&#xe613;</i>-->
+                        <!--                        <i class="iconfont left-nav-li" lay-tips="组织管理">&#xe613;</i>-->
                         <i class="iconfont left-nav-li" lay-tips="组织管理">&#xe723;</i>
                         <cite>组织管理</cite>
-                        <i class="iconfont nav_right">&#xe697;</i></a>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
                     <ul class="sub-menu">
                         <li>
                             <a onclick="xadmin.add_tab('组织创建审核','application-list.html')">
@@ -179,21 +206,21 @@
                 </li>
                 <li>
                     <a href="javascript:;" onclick="xadmin.add_tab('活动管理','activity-list.html')">
-<!--                        <i class="iconfont left-nav-li" lay-tips="活动管理">&#xe609;</i>-->
+                        <!--                        <i class="iconfont left-nav-li" lay-tips="活动管理">&#xe609;</i>-->
                         <i class="iconfont left-nav-li" lay-tips="活动管理">&#xe723;</i>
                         <cite>活动管理</cite>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:;" onclick="xadmin.add_tab('评论管理','comment-list.html')">
-<!--                        <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe63a;</i>-->
+                        <!--                        <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe63a;</i>-->
                         <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe723;</i>
                         <cite>评论管理</cite>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:;" onclick="xadmin.add_tab('反馈管理','feedback-list.html')">
-<!--                        <i class="iconfont left-nav-li" lay-tips="反馈管理">&#xe6b2;</i>-->
+                        <!--                        <i class="iconfont left-nav-li" lay-tips="反馈管理">&#xe6b2;</i>-->
                         <i class="iconfont left-nav-li" lay-tips="反馈管理">&#xe723;</i>
                         <cite>反馈管理</cite>
                     </a>
