@@ -258,9 +258,14 @@
                             layer.alert("增加成功", {
                                 icon: 1,
                                 title: '提示'
-                            }, function () {
+                            }, function (index) {
+                                layer.close(index);		 	
+                                setTimeout(function () { 
+                                    $(".container").addClass("hidden");
+                                    $(".page3").removeClass("hidden");
+                                }, 500)
                                 //关闭当前frame
-                                xadmin.close();
+                                // xadmin.close();
                                 // 可以对父窗口进行刷新 
                                 //xadmin.father_reload();
                             });
