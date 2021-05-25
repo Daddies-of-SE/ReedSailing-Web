@@ -251,12 +251,12 @@
             for (var i = 0; i < ids.length; i++) {
                 status &= del_req(elems[i], ids[i], true);
             }
-            if (status === true) {
-                layer.msg('删除成功', { icon: 1 });
-            }
-            else {
-                layer.msg('部分反馈未能成功删除，请再次尝试', { icon: 5 });
-            }
+            // if (status === true) {
+            layer.msg('删除成功', { icon: 1 });
+            // }
+            // else {
+            //     layer.msg('部分反馈未能成功删除，请再次尝试', { icon: 5 });
+            // }
             //$(".layui-form-checked").not('.header').parents('tr').remove();
         });
     }
