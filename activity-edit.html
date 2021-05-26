@@ -196,7 +196,7 @@
                         $('#L_contain').val(data.contain);
                         $('#L_type').val(data.type.id);
                         $('#L_location').val(data.location.id);
-                        $('#L_org').val(data.org.name);
+                        $('#L_org').val(data.org === null ? "无":data.org.name);
                         $('#L_block').val(data.block.name);
                         form.render('select');
                     }).fail(function (xhr, status) {
