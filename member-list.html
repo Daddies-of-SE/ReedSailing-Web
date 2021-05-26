@@ -32,7 +32,7 @@
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
+                                <button class="layui-btn" lay-submit="" lay-filter="sreach" onclick="search()"><i
                                         class="layui-icon">&#xe615;</i>
                                 </button>
                             </div>
@@ -149,8 +149,11 @@
             headers: headers
         }).done(function (data) {
             console.log(data);
+            var search_name = getQueryVariable();
             for (var i = 0; i < data.length; i++) {
-                member_add(data[i]);
+                if (search_name == null || data[i].name == search_name) {
+                    member_add(data[i]);
+                }
             }
         }).fail(function (xhr, status) {
             console.log(xhr);
@@ -183,6 +186,32 @@
             }
 
         });
+    }
+
+    function search() {
+        var url = self.location.href;
+        var search_name = getQueryVariable();
+        if (search_name != null) {
+            var end = url.indexOf('=');
+            url = url.substring(0, end);
+            url = url.concat(search_name);
+        }
+        else {
+            url = url.concat("?search_key=");
+            url = url.concat(search_name);
+        }
+        window.location.href = url;
+    }
+
+    function getQueryVariable()
+    {
+       var query = window.location.search.substring(1);
+       if (query == "") {
+           console.log("No search")
+           return null;
+       }
+       var pair = query.split("=");
+       return pair[1];
     }
 
     /*用户-删除*/
