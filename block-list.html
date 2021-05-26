@@ -32,7 +32,7 @@
                             </div>
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                            </div>-->
+                            </div>
                             <div class="layui-inline layui-show-xs-block">
                                 <input type="text" name="username" placeholder="请输入版块名" autocomplete="off"
                                     class="layui-input">
@@ -40,7 +40,7 @@
                             <div class="layui-inline layui-show-xs-block">
                                 <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
                                         class="layui-icon">&#xe615;</i></button>
-                            </div>
+                            </div>-->
                             <div class="layui-inline layui-show-xs-block" style="float:right">
                                 <a class="layui-btn layui-btn-small" style="line-height:1.6em"
                                     onclick="location.reload()" title="刷新">
@@ -49,13 +49,17 @@
                             </div>
                         </form>
                     </div>
+                    <!--
                     <div class="layui-card-header">
+                    -->
                         <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除
                         </button> -->
+                        <!--
                         <button class="layui-btn" onclick="xadmin.open('添加版块','./block-add.html',600,400)"><i
                                 class="layui-icon"></i>添加
                         </button>
                     </div>
+                -->
                     <div class="layui-card-body layui-table-body layui-table-main">
                         <table class="layui-table layui-form">
                             <thead>
@@ -65,7 +69,7 @@
                                     </th>
                                     <th>ID</th>
                                     <th>版块名</th>
-                                    <th>操作</th>
+                                    <!--<th>操作</th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -274,15 +278,17 @@
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
             <td>${data.id}</td>
             <td>${data.name}</td>
+            <!--
             <td class="td-manage">
                 <a title="编辑" onclick="block_edit(this,${data.id})"
                 href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
+                -->
                 <!--<a title="删除" onclick="block_del(this,${data.id})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>-->
-            </td>`);
+            <!--</td>-->`);
         form.render('checkbox');
     }
 </script>
