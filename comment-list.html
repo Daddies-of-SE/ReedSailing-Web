@@ -33,14 +33,16 @@
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
                             </div> -->
+                            <!--
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="username" placeholder="请输入评论内容" autocomplete="off"
+                                <input type="text" name="username" id="keyword" placeholder="请输入评论内容" autocomplete="off"
                                     class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
+                                <button class="layui-btn" lay-submit="" lay-filter="sreach" onclick="search()"><i
                                         class="layui-icon">&#xe615;</i></button>
                             </div>
+                        -->
                             <div class="layui-inline layui-show-xs-block" style="float:right">
                                 <a class="layui-btn layui-btn-small" style="line-height:1.6em"
                                     onclick="location.reload()" title="刷新">
@@ -151,22 +153,87 @@
             type: 3,
             icon: 1
         });
-        $.ajax(server + 'activities/comments/', {
+        var search_name = getQueryVariable();
+        console.log(search_name);
+        if (search_name) {
+            $.ajax(server + 'activities/comments/search/', {
+            method: 'GET',
+            contentType: 'application/json',
+            data: JSON.stringify({query: search_name}),
+            headers: headers
+            }).done(function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    comment_add(data[i]);
+                }
+            }).fail(function (xhr, status) {
+                console.log(xhr);
+                console.log(status);
+                layer.msg("网络错误", { icon: 2 });
+            }).always(function () {
+                layer.close(index);
+            });
+        }
+        else {
+            $.ajax(server + 'activities/comments/', {
             method: 'GET',
             headers: headers
-        }).done(function (data) {
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                comment_add(data[i]);
-            }
-        }).fail(function (xhr, status) {
-            console.log(xhr);
-            console.log(status);
-            layer.msg("网络错误", { icon: 2 });
-        }).always(function () {
-            layer.close(index);
-        });
+            }).done(function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    comment_add(data[i]);
+                }
+            }).fail(function (xhr, status) {
+                console.log(xhr);
+                console.log(status);
+                layer.msg("网络错误", { icon: 2 });
+            }).always(function () {
+                layer.close(index);
+            });
+        }
+        // $.ajax(server + 'activities/comments/', {
+        //     method: 'GET',
+        //     headers: headers
+        // }).done(function (data) {
+        //     console.log(data);
+        //     for (var i = 0; i < data.length; i++) {
+        //         comment_add(data[i]);
+        //     }
+        // }).fail(function (xhr, status) {
+        //     console.log(xhr);
+        //     console.log(status);
+        //     layer.msg("网络错误", { icon: 2 });
+        // }).always(function () {
+        //     layer.close(index);
+        // });
     });
+
+    function search() {
+        var url = self.location.href;
+        var search_name = getQueryVariable();
+        var value = $("#keyword").val();
+        console.log(value);
+        var end = url.indexOf('=');
+        if (end != -1) {
+            url = url.substring(0, end + 1);
+            url = url.concat(encodeURI(value));
+        }
+        else {
+            url = url.concat("?search_key=");
+            url = url.concat(encodeURI(value));
+        }
+        window.location.href = url;
+    }
+
+    function getQueryVariable() {
+        var query = window.location.search.substring(1);
+        if (query == "") {
+            console.log("No search")
+            return null;
+        }
+        var pair = query.split("=");
+        return decodeURI(pair[1]);
+    }
 
     function del_req(obj, id, silence) {
         var result = false;

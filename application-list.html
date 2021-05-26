@@ -33,6 +33,7 @@
                             <div class="layui-inline layui-show-xs-block">
                                 <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
                             </div> -->
+                            <!--
                             <div class="layui-inline layui-show-xs-block">
                                 <input type="text" name="keyword" id="keyword" placeholder="请输入组织名" autocomplete="off"
                                     class="layui-input">
@@ -41,6 +42,7 @@
                                 <button type="button" class="layui-btn" lay-submit="" lay-filter="sreach" onclick="search()"><i
                                         class="layui-icon">&#xe615;</i></button>
                             </div>
+                        -->
                             <div class="layui-inline layui-show-xs-block" style="float:right">
                                 <a class="layui-btn layui-btn-small" style="line-height:1.6em"
                                     onclick="location.reload()" title="刷新">
@@ -156,18 +158,9 @@
             headers: headers
         }).done(function (data) {
             console.log(data);
-            var search_name = getQueryVariable();
-            console.log(search_name);
             for (var i = 0; i < data.length; i++) {
-                console.log(data[i])
-                if (search_name == null || data[i].name == search_name) {
-                    app_add(data[i]);
-                }
+                app_add(data[i]);
             }
-            // console.log(data);
-            // for (var i = 0; i < data.length; i++) {
-            //     app_add(data[i]);
-            // }
         }).fail(function (xhr, status) {
             console.log(xhr);
             console.log(status);
@@ -200,34 +193,6 @@
         });
     }
 
-    function search() {
-        var url = self.location.href;
-        var search_name = getQueryVariable();
-        var value = $("#keyword").val();
-        console.log(value);
-        if (search_name != null) {
-            var end = url.indexOf('=');
-            url = url.substring(0, end + 1);
-            url = url.concat(value);
-        }
-        else if (value != "") {
-            url = url.concat("?search_key=");
-            url = url.concat(value);
-        }
-        console.log(url);
-        window.location.href = url;
-    }
-
-    function getQueryVariable()
-    {
-    var query = window.location.search.substring(1);
-    if (query == "") {
-        console.log("No search")
-        return null;
-    }
-    var pair = query.split("=");
-    return pair[1];
-    }
 
     function del_req(obj, id, silence) {
         var result = true;

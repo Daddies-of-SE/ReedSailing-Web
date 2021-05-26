@@ -165,6 +165,8 @@
         if (search_name) {
             $.ajax(server + 'activities/search/', {
             method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({name: search_name}),
             headers: headers
             }).done(function (data) {
                 console.log(data);
