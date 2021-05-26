@@ -86,7 +86,7 @@
     </div>
 </body>
 <script>
-    headers = {'token': localStorage.token};
+    headers = { 'token': localStorage.token };
     var cnt, tbody;
     layui.use(['laydate', 'form'], function () {
         var laydate = layui.laydate;
@@ -106,29 +106,29 @@
         //     form.render('checkbox');
         // });
 
-	
-		form.render();
-		// 实现 全选 反选
-        form.on('checkbox(checkall)',function(data){
-			$(this).parent().parent().parent().siblings("tbody").find("input").prop("checked",this.checked);
-			form.render('checkbox');
-		});
-		/**
-		 * 以下代码实现:
-		 * 1 当子项全部选中时,全选被选中
-		 * 2 当子项未全部选中时,全选不选中
-		 */
-		form.on('checkbox(authority)',function(data){
-			if(this.checked){//当子项全部选中时,全选被选中
-				if($(this).parent().parent().siblings("tr").find("input").not("input:checked").length === 0){
-					$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",true);
-					form.render('checkbox');
-				}
-			} else { // 子项未选中 全选不选中
-				$(this).parent().parent().parent().siblings("thead").find('input').prop("checked",false);
-				form.render('checkbox');
-			}
-		});
+
+        form.render();
+        // 实现 全选 反选
+        form.on('checkbox(checkall)', function (data) {
+            $(this).parent().parent().parent().siblings("tbody").find("input").prop("checked", this.checked);
+            form.render('checkbox');
+        });
+        /**
+         * 以下代码实现:
+         * 1 当子项全部选中时,全选被选中
+         * 2 当子项未全部选中时,全选不选中
+         */
+        form.on('checkbox(authority)', function (data) {
+            if (this.checked) {//当子项全部选中时,全选被选中
+                if ($(this).parent().parent().siblings("tr").find("input").not("input:checked").length === 0) {
+                    $(this).parent().parent().parent().siblings("thead").find('input').prop("checked", true);
+                    form.render('checkbox');
+                }
+            } else { // 子项未选中 全选不选中
+                $(this).parent().parent().parent().siblings("thead").find('input').prop("checked", false);
+                form.render('checkbox');
+            }
+        });
 
         //执行一个laydate实例
         laydate.render({
@@ -151,7 +151,7 @@
             console.log(data);
             var search_name = getQueryVariable();
             for (var i = 0; i < data.length; i++) {
-                if (search_name == null || data[i].name == search_name) {
+                if (!search_name || data[i].name == search_name) {
                     member_add(data[i]);
                 }
             }
@@ -205,15 +205,14 @@
         window.location.href = url;
     }
 
-    function getQueryVariable()
-    {
-       var query = window.location.search.substring(1);
-       if (query == "") {
-           console.log("No search")
-           return null;
-       }
-       var pair = query.split("=");
-       return pair[1];
+    function getQueryVariable() {
+        var query = window.location.search.substring(1);
+        if (query == "") {
+            console.log("No search")
+            return null;
+        }
+        var pair = query.split("=");
+        return decodeURI(pair[1]);
     }
 
     /*用户-删除*/
