@@ -163,6 +163,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('pub_time'));
                 for (var i = 0; i < data.length; i++) {
                     comment_add(data[i]);
                 }
@@ -180,6 +181,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('pub_time'));
                 for (var i = 0; i < data.length; i++) {
                     comment_add(data[i]);
                 }
@@ -207,6 +209,12 @@
         //     layer.close(index);
         // });
     });
+
+    function compare(property){
+        return function (obj1,obj2){
+            return Date.parse(obj2[property])-Date.parse(obj1[property]);
+        }
+    }
 
     function search() {
         var url = self.location.href;
@@ -322,28 +330,53 @@
                 data[key] = '';
             }
         }
-        $(tr).html(`
-            <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
-            <td>${data.id}</td>
-            <td>${data.user.name}</td>
-            <td>${data.content}</td>
-            <td>${data.pub_time}</td>
-            <td><div id="rate${data.id}"></div></td>
-            <td>${data.act.name}</td>
-            <td class="td-manage">
-                <a title="详情" onclick="comment_show(this,${data.id})" href="javascript:;">
-                    <i class="layui-icon">&#xe63c;</i>
-                </a>
-                <a title="删除" onclick="comment_del(this,${data.id})" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>`);
-        rate.render({
-            elem: $(tr).children('td').children(`#rate${data.id}`),
-            value: parseFloat(data.score),
-            half: true,
-            readonly: true
-        })
+        var date = new Date();
+        commenttime = Date.parse(data.pub_time);
+        acttime = Date.parse(data.act.begin_time);
+        console.log(commenttime);
+        console.log(acttime);
+        if (commenttime > acttime) {
+            $(tr).html(`
+                <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
+                <td>${data.id}</td>
+                <td>${data.user.name}</td>
+                <td>${data.content}</td>
+                <td>${data.pub_time}</td>
+                <td><div id="rate${data.id}"></div></td>
+                <td>${data.act.name}</td>
+                <td class="td-manage">
+                    <a title="详情" onclick="comment_show(this,${data.id})" href="javascript:;">
+                        <i class="layui-icon">&#xe63c;</i>
+                    </a>
+                    <a title="删除" onclick="comment_del(this,${data.id})" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>`);
+            rate.render({
+                elem: $(tr).children('td').children(`#rate${data.id}`),
+                value: parseFloat(data.score),
+                half: true,
+                readonly: true
+            })
+        }
+        else {
+            $(tr).html(`
+                <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
+                <td>${data.id}</td>
+                <td>${data.user.name}</td>
+                <td>${data.content}</td>
+                <td>${data.pub_time}</td>
+                <td>活动开始前的评论无评分</div></td>
+                <td>${data.act.name}</td>
+                <td class="td-manage">
+                    <a title="详情" onclick="comment_show(this,${data.id})" href="javascript:;">
+                        <i class="layui-icon">&#xe63c;</i>
+                    </a>
+                    <a title="删除" onclick="comment_del(this,${data.id})" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>`);
+        }
         form.render('checkbox');
     }
 </script>

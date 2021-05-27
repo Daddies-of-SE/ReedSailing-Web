@@ -163,6 +163,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('create_time'));
                 for (var i = 0; i < data.length; i++) {
                     org_add(data[i]);
                 }
@@ -180,6 +181,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('create_time'));
                 for (var i = 0; i < data.length; i++) {
                     org_add(data[i]);
                 }
@@ -192,6 +194,12 @@
             });
         }
     });
+
+    function compare(property){
+        return function (obj1,obj2){
+            return Date.parse(obj2[property])-Date.parse(obj1[property]);
+        }
+    }
 
     function org_edit(obj, id) {
         //TODO:用户不存在时如何提示？

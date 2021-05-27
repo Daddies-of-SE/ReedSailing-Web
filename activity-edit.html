@@ -237,9 +237,9 @@
                         if (isNaN(timestamp)) {
                             return '时间范围非法';
                         }
-                        if (timestamp < date.getTime()) {
-                            return '时间不能早于当前时间';
-                        }
+                        // if (timestamp < date.getTime()) {
+                        //     return '时间不能早于当前时间';
+                        // }
                     },
                     positive_int: function (value, item) {
                         console.log(value);

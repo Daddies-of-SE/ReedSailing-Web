@@ -160,6 +160,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('pub_time'));
                 for (var i = 0; i < data.length; i++) {
                     feedbk_add(data[i]);
                 }
@@ -177,6 +178,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('pub_time'));
                 for (var i = 0; i < data.length; i++) {
                     feedbk_add(data[i]);
                 }
@@ -204,6 +206,12 @@
         //     layer.close(index);
         // });
     });
+
+    function compare(property){
+        return function (obj1,obj2){
+            return Date.parse(obj2[property])-Date.parse(obj1[property]);
+        }
+    }
 
     /*用户-停用*/
     function app_stop(obj, id) {
