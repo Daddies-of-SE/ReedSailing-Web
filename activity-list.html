@@ -383,6 +383,10 @@
                 data[key] = '';
             }
         }
+        var type='无';
+        if(data.type){
+            type=data.type.name;
+        }
         $(td).html(`
             <td><input type="checkbox" name="id" value="${data.id}" lay-skin="primary"lay-filter="authority"></td>
             <td>${data.id}</td>
@@ -392,7 +396,7 @@
             <td>${data.pub_time}</td>
             <td>${data.description}</td>
             <td>${data.contain}</td>
-            <td>${data.type.name}</td>
+            <td>${type}</td>
             <td>${data.location.name}</td>
             <td>${data.org}</td>
             <td>${data.block.name}</td>

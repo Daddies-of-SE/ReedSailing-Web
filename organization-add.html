@@ -47,6 +47,9 @@
                     <div class="layui-input-inline">
                         <select id="L_block" name="block" lay-verify="required" lay-search>
                             <option value=""></option>
+                            <option value="3">学生会</option>
+                            <option value="4">志愿</option>
+                            <option value="1">社团</option>
                         </select>
                     </div>
                 </div>
@@ -73,22 +76,6 @@
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         insert_option(form, owner, data[i].id, `${data[i].name}(${data[i].id})`);
-                    }
-                }).fail(function (xhr, status) {
-                    console.log(xhr);
-                    console.log(status);
-                    layer.msg("网络错误", { icon: 2 });
-                }).always(function () {
-                });
-
-                var block = $('#L_block');
-                $.ajax(server + 'blocks/', {
-                    method: 'GET',
-                    headers: headers
-                }).done(function (data) {
-                    console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        insert_option(form, block, data[i].id, `${data[i].name}(${data[i].id})`);
                     }
                 }).fail(function (xhr, status) {
                     console.log(xhr);

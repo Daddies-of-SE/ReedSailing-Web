@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-        content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
@@ -15,288 +15,294 @@
     <script src="./js/app.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
-            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-    <div class="layui-fluid">
-        <div class="layui-row">
-            <form class="layui-form">
-                <div class="layui-form-item">
-                    <label for="L_id" class="layui-form-label">
-                        ID</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_id" autocomplete="off" class="layui-input" disabled="disabled"
-                            style="background:#d6d6d6">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red">*</span>ID唯一且不可更改
-                    </div>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="L_id" class="layui-form-label">
+                    ID</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_id" autocomplete="off" class="layui-input" disabled="disabled"
+                           style="background:#d6d6d6">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>活动名</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_name" name="name" lay-verify="required" autocomplete="off"
-                            class="layui-input">
-                    </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>ID唯一且不可更改
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_owner" class="layui-form-label">
-                        发起者</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_owner" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_name" class="layui-form-label">
+                    <span class="x-red">*</span>活动名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_name" name="name" lay-verify="required" autocomplete="off"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>开始时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_begin_time" name="begin_time" lay-verify="required|time"
-                            autocomplete="off" class="layui-input">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_owner" class="layui-form-label">
+                    发起者</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_owner" disabled="disabled" autocomplete="off" class="layui-input"
+                           style="background:#d6d6d6">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>结束时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_end_time" name="end_time" lay-verify="required|time" autocomplete="off"
-                            class="layui-input">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_name" class="layui-form-label">
+                    <span class="x-red">*</span>开始时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_begin_time" name="begin_time" lay-verify="required|time"
+                           autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        发布时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_pub_time" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_name" class="layui-form-label">
+                    <span class="x-red">*</span>结束时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_end_time" name="end_time" lay-verify="required|time" autocomplete="off"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        描述</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_description" name="description" autocomplete="off" class="layui-input">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    发布时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_pub_time" disabled="disabled" autocomplete="off" class="layui-input"
+                           style="background:#d6d6d6">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_avatar" class="layui-form-label">
-                        <span class="x-red">*</span>人数上限</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_contain" name="contain" lay-verify="required|positive_int"
-                            autocomplete="off" class="layui-input">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    描述</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_description" name="description" autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_avatar" class="layui-form-label">
-                        活动种类</label>
-                    <div class="layui-input-inline">
-                        <select id="L_type" name="type" lay-search>
-                            <option value=""></option>
-                        </select>
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_avatar" class="layui-form-label">
+                    <span class="x-red">*</span>人数上限</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_contain" name="contain" lay-verify="required|positive_int"
+                           autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>地点</label>
-                    <div class="layui-input-inline">
-                        <select id="L_location" name="location" lay-verify="required" lay-search>
-                            <option value=""></option>
-                        </select>
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_avatar" class="layui-form-label">
+                    活动种类</label>
+                <div class="layui-input-inline">
+                    <select id="L_type" name="type" lay-search>
+                        <option value=""></option>
+                    </select>
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        组织</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_org" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_name" class="layui-form-label">
+                    <span class="x-red">*</span>地点</label>
+                <div class="layui-input-inline">
+                    <select id="L_location" name="location" lay-verify="required" lay-search>
+                        <option value=""></option>
+                    </select>
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        版块</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_block" disabled="disabled" autocomplete="off" class="layui-input"
-                            style="background:#d6d6d6">
-                    </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    组织</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_org" disabled="disabled" autocomplete="off" class="layui-input"
+                           style="background:#d6d6d6">
                 </div>
-                <div class="layui-form-item">
-                    <label for="L_repass" class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="">提交</button>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    版块</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_block" disabled="disabled" autocomplete="off" class="layui-input"
+                           style="background:#d6d6d6">
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label"></label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">提交</button>
+            </div>
+        </form>
     </div>
-    <script>
-        headers = {'token': localStorage.token};
-        layui.use(['form', 'layer', 'laydate'],
-            function () {
-                var id = localStorage.activity_id_edit;
-                localStorage.removeItem('activity_id_edit');
-                console.log(id);
-                $ = layui.jquery;
-                var form = layui.form,
-                    layer = layui.layer,
-                    laydate = layui.laydate;
+</div>
+<script>
+    headers = {'token': localStorage.token};
+    layui.use(['form', 'layer', 'laydate'],
+        function () {
+            var id = localStorage.activity_id_edit;
+            localStorage.removeItem('activity_id_edit');
+            console.log(id);
+            $ = layui.jquery;
+            var form = layui.form,
+                layer = layui.layer,
+                laydate = layui.laydate;
 
-                if (isNaN(id)) {
-                    layer.msg('ID错误', { icon: 5 });
+            var type_ok = false, addr_ok = false;
+
+            if (isNaN(id)) {
+                layer.msg('ID错误', {icon: 5});
+            } else {
+                var index = layer.open({type: 3, icon: 1});
+
+                var type = $('#L_type');
+                $.ajax(server + 'activities/categories/', {
+                    method: 'GET',
+                    headers: headers
+                }).done(function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        insert_option(form, type, data[i].id, `${data[i].name}(${data[i].id})`);
+                    }
+                    type_ok = true;
+                }).fail(function (xhr, status) {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", {icon: 2});
+                }).always(function () {
+                });
+
+                var location = $('#L_location');
+                $.ajax(server + 'activities/addresses/', {
+                    method: 'GET',
+                    headers: headers
+                }).done(function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        insert_option(form, location, data[i].id, `${data[i].name}(${data[i].id})`);
+                    }
+                    addr_ok = true;
+                }).fail(function (xhr, status) {
+                    console.log(xhr);
+                    console.log(status);
+                    layer.msg("网络错误", {icon: 2});
+                }).always(function () {
+                });
+
+                $.ajax(server + `activities/${id}/`, {
+                    method: 'GET',
+                    headers: headers
+                }).done(function (data) {
+                    console.log(data);
+                    console.log(type_ok, addr_ok);
+                    console.log(!type_ok | !addr_ok);
+                    while (!type_ok) {
+
+                    }
+                    // while (!type_ok | !addr_ok) {
+                    //
+                    // }
+                    $('#L_id').val(data.id);
+                    $('#L_name').val(data.name);
+                    $('#L_owner').val(data.owner.name);
+                    $('#L_begin_time').val(data.begin_time);
+                    $('#L_end_time').val(data.end_time);
+                    $('#L_pub_time').val(data.pub_time);
+                    $('#L_description').val(data.description);
+                    $('#L_contain').val(data.contain);
+                    $('#L_type').val(data.type == null ? '无' : data.type.id);
+                    $('#L_location').val(data.location.id);
+                    $('#L_org').val(data.org == null ? "无" : data.org.name);
+                    $('#L_block').val(data.block.name);
+                    form.render('select');
+                }).fail(function (xhr, status) {
+                    console.log(xhr);
+                    console.log(status);
+                    if (xhr.status === 404) {
+                        layer.msg('该活动不存在', {icon: 5});
+                    } else {
+                        layer.msg("网络错误", {icon: 2});
+                    }
+                }).always(function () {
+                    layer.close(index);
+                });
+            }
+
+            laydate.render({
+                elem: '#L_begin_time',
+                type: 'datetime',
+                format: 'yyyy-MM-ddTHH:mm:ss',
+                trigger: 'click',
+            })
+
+            laydate.render({
+                elem: '#L_end_time',
+                type: 'datetime',
+                format: 'yyyy-MM-ddTHH:mm:ss',
+                trigger: 'click',
+            })
+
+            //自定义验证规则
+            var date = new Date();
+            form.verify({
+                time: function (value, item) {
+                    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
+                        return '时间格式必须为yyyy-MM-ddTHH:mm:ss';
+                    }
+                    timestamp = Date.parse(value);
+                    if (isNaN(timestamp)) {
+                        return '时间范围非法';
+                    }
+                },
+                positive_int: function (value, item) {
+                    console.log(value);
+                    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+                        return '人数必须是正整数';
+                    }
                 }
-                else {
-                    var index = layer.open({ type: 3, icon: 1 });
-                    
-                    var type = $('#L_type');
-                    $.ajax(server + 'activities/categories/', {
-                        method: 'GET',
-                        headers: headers
-                    }).done(function (data) {
-                        console.log(data);
-                        for (var i = 0; i < data.length; i++) {
-                            insert_option(form, type, data[i].id, `${data[i].name}(${data[i].id})`);
-                        }
-                    }).fail(function (xhr, status) {
-                        console.log(xhr);
-                        console.log(status);
-                        layer.msg("网络错误", { icon: 2 });
-                    }).always(function () {
-                    });
-    
-                    var location = $('#L_location');
-                    $.ajax(server + 'activities/addresses/', {
-                        method: 'GET',
-                        headers: headers
-                    }).done(function (data) {
-                        console.log(data);
-                        for (var i = 0; i < data.length; i++) {
-                            insert_option(form, location, data[i].id, `${data[i].name}(${data[i].id})`);
-                        }
-                    }).fail(function (xhr, status) {
-                        console.log(xhr);
-                        console.log(status);
-                        layer.msg("网络错误", { icon: 2 });
-                    }).always(function () {
-                    });
+            });
 
+            //监听提交
+            form.on('submit(add)',
+                function (data) {
+                    console.log(data.field);
+                    if (!time_check(data.field.begin_time, data.field.end_time)) {
+                        layer.msg('开始时间不能晚于结束时间', {
+                            icon: 5,
+                            anim: 6,
+                        })
+                        return false;
+                    }
+                    var index = layer.open({type: 3, icon: 1});
                     $.ajax(server + `activities/${id}/`, {
-                        method: 'GET',
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data.field),
                         headers: headers
                     }).done(function (data) {
-                        console.log(data);
-                        $('#L_id').val(data.id);
-                        $('#L_name').val(data.name);
-                        $('#L_owner').val(data.owner.name);
-                        $('#L_begin_time').val(data.begin_time);
-                        $('#L_end_time').val(data.end_time);
-                        $('#L_pub_time').val(data.pub_time);
-                        $('#L_description').val(data.description);
-                        $('#L_contain').val(data.contain);
-                        $('#L_type').val(data.type.id);
-                        $('#L_location').val(data.location.id);
-                        $('#L_org').val(data.org === null ? "无":data.org.name);
-                        $('#L_block').val(data.block.name);
-                        form.render('select');
+                        //$(obj).parents("tr").remove();
+                        layer.msg('修改成功', {icon: 1, time: 1000});
                     }).fail(function (xhr, status) {
                         console.log(xhr);
                         console.log(status);
-                        if (xhr.status === 404) {
-                            layer.msg('该活动不存在', { icon: 5 });
-                        }
-                        else {
-                            layer.msg("网络错误", { icon: 2 });
+                        //layer.msg("网络错误");
+                        if (xhr.status === 400) {
+                            layer.msg(`活动 ${data.field.name} 已存在`, {icon: 5});
+                        } else if (xhr.status === 404) {
+                            layer.msg('该活动不存在', {icon: 5});
+                        } else {
+                            layer.msg('网络错误', {icon: 2});
                         }
                     }).always(function () {
                         layer.close(index);
                     });
-                }
-
-                laydate.render({
-                    elem: '#L_begin_time',
-                    type: 'datetime',
-                    format: 'yyyy-MM-ddTHH:mm:ss',
-                    position: 'fixed'
-                })
-
-                laydate.render({
-                    elem: '#L_end_time',
-                    type: 'datetime',
-                    format: 'yyyy-MM-ddTHH:mm:ss'
-                })
-
-                //自定义验证规则
-                var date = new Date();
-                form.verify({
-                    time: function (value, item) {
-                        if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
-                            return '时间格式必须为yyyy-MM-ddTHH:mm:ss';
-                        }
-                        timestamp = Date.parse(value);
-                        if (isNaN(timestamp)) {
-                            return '时间范围非法';
-                        }
-                        if (timestamp < date.getTime()) {
-                            return '时间不能早于当前时间';
-                        }
-                    },
-                    positive_int: function (value, item) {
-                        console.log(value);
-                        if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
-                            return '人数必须是正整数';
-                        }
-                    }
+                    /*layer.alert("增加成功", {
+                        icon: 6
+                    }, function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });*/
+                    return false;
                 });
 
-                //监听提交
-                form.on('submit(add)',
-                    function (data) {
-                        console.log(data.field);
-                        if (!time_check(data.field.begin_time, data.field.end_time)) {
-                            layer.msg('开始时间不能晚于结束时间', {
-                                icon: 5,
-                                anim: 6,
-                            })
-                            return false;
-                        }
-                        var index = layer.open({ type: 3, icon: 1 });
-                        $.ajax(server + `activities/${id}/`, {
-                            method: 'PUT',
-                            contentType: 'application/json',
-                            data: JSON.stringify(data.field),
-                            headers: headers
-                        }).done(function (data) {
-                            //$(obj).parents("tr").remove();
-                            layer.msg('修改成功', { icon: 1, time: 1000 });
-                        }).fail(function (xhr, status) {
-                            console.log(xhr);
-                            console.log(status);
-                            //layer.msg("网络错误");
-                            if (xhr.status === 400) {
-                                layer.msg(`活动 ${data.field.name} 已存在`, { icon: 5 });
-                            }
-                            else if (xhr.status === 404) {
-                                layer.msg('该活动不存在', { icon: 5 });
-                            }
-                            else {
-                                layer.msg('网络错误', { icon: 2 });
-                            }
-                        }).always(function () {
-                            layer.close(index);
-                        });
-                        /*layer.alert("增加成功", {
-                            icon: 6
-                        }, function () {
-                            // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
-                            //关闭当前frame
-                            parent.layer.close(index);
-                        });*/
-                        return false;
-                    });
-
-            });</script>
+        });</script>
 
 </body>
 
