@@ -180,7 +180,7 @@
                         layer.msg("网络错误", { icon: 2 });
                     }).always(function () {
                     });
-
+                    
                     $.ajax(server + `activities/${id}/`, {
                         method: 'GET',
                         headers: headers
@@ -194,7 +194,9 @@
                         $('#L_pub_time').val(data.pub_time);
                         $('#L_description').val(data.description);
                         $('#L_contain').val(data.contain);
-                        $('#L_type').val(data.type.id);
+                        if (data.type) {
+                            $('#L_type').val(data.type.id);
+                        }
                         $('#L_location').val(data.location.id);
                         $('#L_org').val(data.org === null ? "无":data.org.name);
                         $('#L_block').val(data.block.name);
