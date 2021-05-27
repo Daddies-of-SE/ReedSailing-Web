@@ -39,7 +39,7 @@
                     <label for="L_name" class="layui-form-label">
                         <span class="x-red">*</span>组织名</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_name" name="name" lay-verify="required" autocomplete="off"
+                        <input type="text" id="L_name" name="name" lay-verify="required|limit50" autocomplete="off"
                             class="layui-input">
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     <label for="L_email" class="layui-form-label">
                         简介</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_description" name="description" autocomplete="off" class="layui-input">
+                        <input type="text" id="L_description" name="description" lay-verify="limit500" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -70,7 +70,7 @@
                     <label for="L_avatar" class="layui-form-label">
                         头像</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_avatar" name="avatar" autocomplete="off" class="layui-input">
+                        <input type="text" id="L_avatar" name="avatar" lay-verify="limit500" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -130,19 +130,18 @@
                 }
 
                 //自定义验证规则
-                /*form.verify({
-                    nikename: function (value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
+                form.verify({
+                    limit50: function (value) {
+                        if (value.length > 50) {
+                            return '长度不能超过50个字符';
                         }
                     },
-                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function (value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
+                    limit500: function (value) {
+                        if (value.length > 500) {
+                            return '长度不能超过500个字符';
                         }
-                    }
-                });*/
+                    },
+                });
 
                 //监听提交
                 form.on('submit(add)',

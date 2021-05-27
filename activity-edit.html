@@ -39,7 +39,7 @@
                 <label for="L_name" class="layui-form-label">
                     <span class="x-red">*</span>活动名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_name" name="name" lay-verify="required" autocomplete="off"
+                    <input type="text" id="L_name" name="name" lay-verify="required|limit100" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <label for="L_email" class="layui-form-label">
                     描述</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_description" name="description" autocomplete="off" class="layui-input">
+                    <input type="text" id="L_description" name="description" lay-verify="limit500" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -240,6 +240,17 @@
             //自定义验证规则
             var date = new Date();
             form.verify({
+                limit100: function (value) {
+                    if (value.length > 100) {
+                        return '长度不能超过100个字符';
+                    }
+                },
+                limit500: function (value) {
+                    console.log(value.length);
+                    if (value.length > 500) {
+                        return '长度不能超过500个字符';
+                    }
+                },
                 time: function (value, item) {
                     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
                         return '时间格式必须为yyyy-MM-ddTHH:mm:ss';
@@ -250,9 +261,11 @@
                     }
                 },
                 positive_int: function (value, item) {
-                    console.log(value);
                     if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
                         return '人数必须是正整数';
+                    }
+                    if (parseInt(value) > 100000) {
+                        return '人数不能超过100000';
                     }
                 }
             });
