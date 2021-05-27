@@ -51,9 +51,11 @@
                     <div class="layui-card-header">
                         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除
                         </button>
+                        <!--
                         <button class="layui-btn" onclick="xadmin.open('添加组织','./organization-add.html',600,400)"><i
                                 class="layui-icon"></i>添加
                         </button>
+                    -->
                     </div>
                     <div class="layui-card-body layui-table-body layui-table-main">
                         <table class="layui-table layui-form">
@@ -163,6 +165,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('create_time'));
                 for (var i = 0; i < data.length; i++) {
                     org_add(data[i]);
                 }
@@ -180,6 +183,7 @@
             headers: headers
             }).done(function (data) {
                 console.log(data);
+                data = data.sort(compare('create_time'));
                 for (var i = 0; i < data.length; i++) {
                     org_add(data[i]);
                 }
@@ -192,6 +196,12 @@
             });
         }
     });
+
+    function compare(property){
+        return function (obj1,obj2){
+            return Date.parse(obj2[property])-Date.parse(obj1[property]);
+        }
+    }
 
     function org_edit(obj, id) {
         //TODO:用户不存在时如何提示？
