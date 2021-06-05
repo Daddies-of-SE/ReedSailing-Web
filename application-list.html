@@ -268,7 +268,9 @@
                 data: JSON.stringify({ status: status }),
                 headers: headers
             }).done(function (data) {
-                layer.msg('审批完成', { icon: 6 });
+                layer.msg('审批完成', { icon: 6, time: 1000 }, function() {
+                    window.location.reload();
+                });
             }).fail(function (xhr, status) {
                 if (xhr.status === 400) {
                     layer.msg("该申请已被处理", { icon: 5 });
