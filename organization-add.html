@@ -77,6 +77,7 @@
                     for (var i = 0; i < data.length; i++) {
                         insert_option(form, owner, data[i].id, `${data[i].name}(${data[i].id})`);
                     }
+                    form.render('select');
                 }).fail(function (xhr, status) {
                     console.log(xhr);
                     console.log(status);
